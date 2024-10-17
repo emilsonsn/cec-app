@@ -1,0 +1,19 @@
+<app-account-manager
+  [options]="options"
+  primary_text="Assinar documento"
+  [secondary_text]="true"
+>
+
+<div class="file-upload d-flex justify-content-center" style="width: 100%;">
+  <input type="file" #fileInput hidden (change)="onFileSelected($event)">
+  <button mat-raised-button color="outline" (click)="fileInput.click()">
+    <mat-icon>cloud_upload</mat-icon> Escolher Arquivo
+  </button>
+  <span *ngIf="selectedFile">{{ selectedFile.name }}</span>
+</div>
+
+
+
+</app-account-manager>
+
+

@@ -8,6 +8,7 @@ import {AnimationOptions} from "ngx-lottie";
 })
 export class AccountManagerComponent {
   @Input() primary_text: string = '';
+  @Input() secondary_text: boolean;
   @Input() options: AnimationOptions = {};
 
 }

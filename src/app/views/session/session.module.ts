@@ -10,13 +10,15 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
+import { AssignComponent } from './assign/assign.component';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
     ForgotPasswordComponent,
-    PasswordRecoveryComponent
+    PasswordRecoveryComponent,
+    AssignComponent
   ],
   imports: [
     CommonModule,

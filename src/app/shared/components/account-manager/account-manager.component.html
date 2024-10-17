@@ -1,9 +1,14 @@
 <main>
   <section class="form-section">
     <div class="form-main">
-      <img src="./assets/images/logo.png" alt="logo">
+      <div class="logo">
+        <img src="./assets/images/logo.jpg"  alt="logo">
+      </div>
       <div class="form-container">
-        <h2>{{ primary_text }}</h2>
+        <h2 style="width: 100%;" class="text-center">{{ primary_text }}</h2>
+        <p *ngIf="secondary_text" style="width: 100%;" class="text-center">
+          Assina seus documentos <br>de forma <span> <strong>gratúita</strong> </span> de forma fácil e rápida
+        </p>
         <ng-content></ng-content>
       </div>
     </div>

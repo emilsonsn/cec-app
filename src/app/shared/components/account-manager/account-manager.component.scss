@@ -7,6 +7,16 @@ main {
   justify-content: center;
   height: 100%;
 
+  .logo{
+    width: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    img{
+      width: 150px !important;
+    }
+  }
+
   section {
     height: 100%;
     display: flex;
@@ -18,8 +28,9 @@ main {
   .form-section {
     flex-grow: 0.5;
     padding: 0 35px;
-    max-width: 500px;
     display: flex;
+    background: $secondary;
+    color: white;
     justify-content: space-between;
     align-items: start;
 
@@ -28,6 +39,7 @@ main {
       flex: 1;
       display: flex;
       flex-direction: column;
+      width: 100%;
 
       img {
         width: 40%;
@@ -59,6 +71,7 @@ main {
   .display-animation {
     gap: 0.5rem;
     flex-grow: 1;
+    min-width: 50vw;
     background-color: $primary;
     color: white;
     text-transform: uppercase;
