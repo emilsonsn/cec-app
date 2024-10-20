@@ -1,19 +1,46 @@
-<app-account-manager
-  [options]="options"
-  primary_text="Assinar documento"
-  [secondary_text]="true"
->
+<div id="selectFile" class="w-100 h-100" [ngStyle]="{ display: isToAssign ? 'none' : 'block' }">
+  <app-account-manager [options]="options" primary_text="Assinar documento" [secondary_text]="true">
 
-<div class="file-upload d-flex justify-content-center" style="width: 100%;">
-  <input type="file" #fileInput hidden (change)="onFileSelected($event)">
-  <button mat-raised-button color="outline" (click)="fileInput.click()">
-    <mat-icon>cloud_upload</mat-icon> Escolher Arquivo
-  </button>
-  <span *ngIf="selectedFile">{{ selectedFile.name }}</span>
+    <div class="file-upload d-flex justify-content-center" style="width: 100%;">
+      <input type="file" #fileInput hidden (change)="onFileSelected($event)">
+      <button mat-raised-button color="outline" (click)="fileInput.click()">
+        <mat-icon>cloud_upload</mat-icon> Escolher Arquivo
+      </button>
+      <span *ngIf="selectedFile">{{ selectedFile.name }}</span>
+    </div>
+
+  </app-account-manager>
 </div>
 
+<div id="assign" class="w-100 h-100" [ngStyle]="{ display: isToAssign ? 'block' : 'none' }">
 
+  <div id="header">
+    <div id="return" matRipple (click)="returnToAssign()">
+      <i class="fa-solid fa-arrow-left"></i> Voltar
+    </div>
+    <p id="text">Assinar documento</p>
+  </div>
 
-</app-account-manager>
+  <div id="content">
+
+    <div id="file">
+
+      <div id="canvaTemplate">
+        <canvas id="pdf-canvas"> <!-- (click)="onCanvasClick($event)" --></canvas>
+
+        <div #exampleBox class="example-box" cdkDragBoundary="#canvaTemplate" cdkDrag (cdkDragEnded)="print($event);">
+          Assinatura
+        </div>
+      </div>
+
+    </div>
+
+    <div id="props">
+
+    </div>
+
+  </div>
+
+</div>
 
 

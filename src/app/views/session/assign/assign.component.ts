@@ -1,76 +1,100 @@
-import {Component} from '@angular/core';
-import {AnimationOptions} from "ngx-lottie";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import { Router } from '@angular/router';
-import { SessionService } from '@store/session.service';
-import { SessionQuery } from '@store/session.query';
-import { lastValueFrom } from 'rxjs';
+import { CdkDrag } from '@angular/cdk/drag-drop';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AnimationOptions } from 'ngx-lottie';
+import { ToastrService } from 'ngx-toastr';
+import * as pdfjsLib from 'pdfjs-dist';
+import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.mjs';
 
 @Component({
   selector: 'assign',
   templateUrl: './assign.component.html',
-  styleUrl: './assign.component.scss'
+  styleUrls: ['./assign.component.scss'],
 })
-export class AssignComponent {
-  loginForm: FormGroup;
-  hide: boolean = true;
-  private user;
-  selectedFile: File | null = null;
+export class AssignComponent implements OnInit {
+
+  protected isToAssign : boolean = false;
+
+  protected selectedFile: File | null = null;
+  protected pdfSrc: string | ArrayBuffer | null = null;
+  protected signaturePosition: { x: number; y: number } | null = null;
 
 
-  constructor(
-    private fb: FormBuilder,
-    private readonly _router: Router,
-    private readonly _sessionService : SessionService,
-    private readonly _sessionQuery : SessionQuery
+  constructor (
+    private readonly _toastr : ToastrService
   ) {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]]
-    });
-
+    (pdfjsLib as any).GlobalWorkerOptions.workerSrc = '../../../../assets/pdf.worker.mjs';
   }
 
-  onFileSelected(event: any) {
+  ngOnInit() { }
+
+  print(event: any) {
+    console.log(event.source.getFreeDragPosition());
+  }
+
+  protected onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
-  }
-  togglePasswordVisibility() {
-    this.hide = !this.hide; // Alterna a visibilidade da senha
-  }
 
-  getEmailErrorMessage() {
-    if (this.loginForm.get('email')?.hasError('required')) {
-      return 'Você deve inserir um email';
-    }
-    return this.loginForm.get('email')?.hasError('email') ? 'Email inválido' : '';
-  }
-
-  getPasswordErrorMessage() {
-    if (this.loginForm.get('password')?.hasError('required')) {
-      return 'Você deve inserir uma senha';
-    }
-    return this.loginForm.get('password')?.hasError('minlength') ? 'A senha deve ter no mínimo 6 caracteres' : '';
-  }
-
-  async onSubmit() {
-    if (this.loginForm.valid) {
-      const { email, password } = this.loginForm.getRawValue();
-      await this._sessionService.login(email, password);
-
-      await lastValueFrom(this._sessionService.getUserFromBack());
-
-      this._sessionQuery.user$.subscribe((user) => {
-        this.user = user;
-      });
-
-      if(this.user?.company_position?.position === 'Requester')
-        this._router.navigate(['/painel/orders']);
-      else
-        this._router.navigate(['/painel/home']);
+    if (this.selectedFile) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.pdfSrc = reader.result;
+        this.renderPdf(reader.result as string);
+      };
+      reader.readAsDataURL(this.selectedFile);
     }
   }
 
-  options: AnimationOptions = {
+  protected renderPdf(pdfData: string) {
+    const loadingTask = pdfjsLib.getDocument(pdfData);
+    loadingTask.promise.then(
+      (pdf) => {
+        pdf.getPage(1).then((page) => {
+          const scale = 1.5;
+          const viewport = page.getViewport({ scale });
+
+          const canvas = document.getElementById('pdf-canvas') as HTMLCanvasElement;
+          const context = canvas.getContext('2d');
+
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
+
+          const renderContext = {
+            canvasContext: context!,
+            viewport: viewport,
+          };
+          page.render(renderContext);
+
+          this.isToAssign = true;
+        });
+      },
+      (reason) => {
+        this._toastr.error("Erro ao carregar PDF: " + reason);
+      }
+    );
+  }
+
+  public returnToAssign() {
+    this.isToAssign = false;
+    this.selectedFile = null;
+    this.pdfSrc = null;
+    this.signaturePosition = null;
+  }
+
+  // Apenas para debug -> Pega a posição de um (x,y) no PDF
+  protected onCanvasClick(event: MouseEvent) {
+    const canvas = event.target as HTMLCanvasElement;
+    const rect = canvas.getBoundingClientRect();
+
+    const x = event.clientX - rect.left;
+    const y = event.clientY - rect.top;
+
+    this.signaturePosition = { x, y };
+
+    console.log('Posição da assinatura:', { x, y });
+  }
+
+  // Account Manager
+  protected options: AnimationOptions = {
     path: '/assets/json/login_animation.json',
   };
 }

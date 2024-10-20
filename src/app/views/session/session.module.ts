@@ -11,6 +11,8 @@ import {MatIcon} from "@angular/material/icon";
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
 import { AssignComponent } from './assign/assign.component';
+import { CdkDrag } from '@angular/cdk/drag-drop';
+import { MatRippleModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -25,6 +27,7 @@ import { AssignComponent } from './assign/assign.component';
     SessionRoutingModule,
     SharedModule,
     ReactiveFormsModule,
+    CdkDrag,
     MatError,
     MatLabel,
     MatInput,
@@ -33,6 +36,7 @@ import { AssignComponent } from './assign/assign.component';
     MatIcon,
     MatFormField,
     MatButton,
+    MatRippleModule,
   ]
 })
 export class SessionModule {
