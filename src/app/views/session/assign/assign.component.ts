@@ -16,8 +16,9 @@ export class AssignComponent implements OnInit {
 
   protected selectedFile: File | null = null;
   protected pdfSrc: string | ArrayBuffer | null = null;
-  protected signaturePosition: { x: number; y: number } | null = null;
+  protected signaturePosition;
 
+  dragPosition = {x: 300, y: 1800};
 
   constructor (
     private readonly _toastr : ToastrService
@@ -48,24 +49,52 @@ export class AssignComponent implements OnInit {
     const loadingTask = pdfjsLib.getDocument(pdfData);
     loadingTask.promise.then(
       (pdf) => {
-        pdf.getPage(1).then((page) => {
-          const scale = 1.5;
-          const viewport = page.getViewport({ scale });
+        // Container onde os canvases vão ser adicionados
+        const pdfContainer = document.getElementById('pdf-container');
+        if (pdfContainer) {
+          pdfContainer.innerHTML = ''; // Limpa o container antes de renderizar
 
-          const canvas = document.getElementById('pdf-canvas') as HTMLCanvasElement;
-          const context = canvas.getContext('2d');
+          // Itera pelas páginas do PDF e cria um canvas para cada uma
+          for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+            pdf.getPage(pageNum).then((page) => {
+              const scale = 1.5;
+              const viewport = page.getViewport({ scale });
 
-          canvas.height = viewport.height;
-          canvas.width = viewport.width;
+              // Cria um elemento div para conter o canvas e a assinatura
+              const pageContainer = document.createElement('div');
+              pageContainer.classList.add('page-container');
+              pdfContainer.appendChild(pageContainer);
 
-          const renderContext = {
-            canvasContext: context!,
-            viewport: viewport,
-          };
-          page.render(renderContext);
+              // Cria um novo canvas para cada página
+              const canvas = document.createElement('canvas');
+              canvas.id = `pdf-canvas-${pageNum}`;
+              canvas.width = viewport.width;
+              canvas.height = viewport.height;
+              pageContainer.appendChild(canvas);
 
-          this.isToAssign = true;
-        });
+              const context = canvas.getContext('2d');
+
+              const renderContext = {
+                canvasContext: context!,
+                viewport: viewport,
+              };
+
+              // Renderiza a página no canvas
+              page.render(renderContext);
+
+              // Adiciona o evento de clique no canvas, passando também o número da página
+              canvas.addEventListener('click', (event: MouseEvent) => this.onCanvasClick(event, pageNum));
+
+              // Cria a div para a "assinatura" e aplica as propriedades de arraste
+              const signatureDiv = document.createElement('div');
+              signatureDiv.classList.add('example-box');
+              signatureDiv.innerText = 'Assinatura';
+              pageContainer.appendChild(signatureDiv);
+
+              this.isToAssign = true;
+            });
+          }
+        }
       },
       (reason) => {
         this._toastr.error("Erro ao carregar PDF: " + reason);
@@ -73,24 +102,34 @@ export class AssignComponent implements OnInit {
     );
   }
 
-  public returnToAssign() {
-    this.isToAssign = false;
-    this.selectedFile = null;
-    this.pdfSrc = null;
-    this.signaturePosition = null;
-  }
-
-  // Apenas para debug -> Pega a posição de um (x,y) no PDF
-  protected onCanvasClick(event: MouseEvent) {
+  // Função para pegar a posição de clique no canvas e o número da página
+  protected onCanvasClick(event: MouseEvent, pageNum: number) {
     const canvas = event.target as HTMLCanvasElement;
     const rect = canvas.getBoundingClientRect();
 
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
 
-    this.signaturePosition = { x, y };
+    this.signaturePosition = { x, y, page: pageNum };
 
-    console.log('Posição da assinatura:', { x, y });
+    // Definir a posição inicial como {x: 0, y: 0} se for necessário
+    this.dragPosition = { x: 0, y: 0 };
+
+    setTimeout(() => {
+      // Atualizar diretamente a posição para o local correto
+      this.dragPosition = { x: x, y: y * pageNum }; // Atribua as coordenadas diretamente
+    }, 200); // Um pequeno delay, pode ajustar o tempo conforme necessário
+
+    console.log(`Posição da assinatura na página ${pageNum}:`, { x, y });
+  }
+
+
+
+  public returnToAssign() {
+    this.isToAssign = false;
+    this.selectedFile = null;
+    this.pdfSrc = null;
+    this.signaturePosition = null;
   }
 
   // Account Manager

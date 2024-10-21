@@ -28,9 +28,6 @@
       <div id="canvaTemplate">
         <canvas id="pdf-canvas"> <!-- (click)="onCanvasClick($event)" --></canvas>
 
-        <div #exampleBox class="example-box" cdkDragBoundary="#canvaTemplate" cdkDrag (cdkDragEnded)="print($event);">
-          Assinatura
-        </div>
       </div>
 
     </div>
@@ -42,5 +39,16 @@
   </div>
 
 </div>
+
+<div style="position: relative;">
+  <div #exampleBox class="example-box" cdkDrag [cdkDragFreeDragPosition]="dragPosition" (cdkDragEnded)="print($event);" >
+    Assinatura
+  </div>
+
+  <div id="pdf-container"></div>
+
+
+</div>
+
 
 
