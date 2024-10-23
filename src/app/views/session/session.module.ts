@@ -13,6 +13,7 @@ import { PasswordRecoveryComponent } from './password-recovery/password-recovery
 import { AssignComponent } from './assign/assign.component';
 import { CdkDrag } from '@angular/cdk/drag-drop';
 import { MatRippleModule } from '@angular/material/core';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { MatRippleModule } from '@angular/material/core';
     MatFormField,
     MatButton,
     MatRippleModule,
+    PdfViewerModule
   ]
 })
 export class SessionModule {

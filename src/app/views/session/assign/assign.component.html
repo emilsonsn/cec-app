@@ -1,6 +1,5 @@
 <div id="selectFile" class="w-100 h-100" [ngStyle]="{ display: isToAssign ? 'none' : 'block' }">
   <app-account-manager [options]="options" primary_text="Assinar documento" [secondary_text]="true">
-
     <div class="file-upload d-flex justify-content-center" style="width: 100%;">
       <input type="file" #fileInput hidden (change)="onFileSelected($event)">
       <button mat-raised-button color="outline" (click)="fileInput.click()">
@@ -8,12 +7,10 @@
       </button>
       <span *ngIf="selectedFile">{{ selectedFile.name }}</span>
     </div>
-
   </app-account-manager>
 </div>
 
 <div id="assign" class="w-100 h-100" [ngStyle]="{ display: isToAssign ? 'block' : 'none' }">
-
   <div id="header">
     <div id="return" matRipple (click)="returnToAssign()">
       <i class="fa-solid fa-arrow-left"></i> Voltar
@@ -22,33 +19,15 @@
   </div>
 
   <div id="content">
-
     <div id="file">
+      <div id="pdf-container" (click)="getCoordinates($event)">
 
-      <div id="canvaTemplate">
-        <canvas id="pdf-canvas"> <!-- (click)="onCanvasClick($event)" --></canvas>
+        <div class="assing-model">
+          <p>Assinatura</p>
+        </div>
 
+        <pdf-viewer class="pdf-viewer" [src]="pdfSrc" [original-size]="true" [render-text]="true"></pdf-viewer>
       </div>
-
     </div>
-
-    <div id="props">
-
-    </div>
-
   </div>
-
 </div>
-
-<div style="position: relative;">
-  <div #exampleBox class="example-box" cdkDrag [cdkDragFreeDragPosition]="dragPosition" (cdkDragEnded)="print($event);" >
-    Assinatura
-  </div>
-
-  <div id="pdf-container"></div>
-
-
-</div>
-
-
-
