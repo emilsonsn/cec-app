@@ -22,8 +22,9 @@
       </mat-error>
     </mat-form-field>
 
-    <div class="forgot-password">
-      <p><a routerLink="/forgot-password">Esqueceu sua senha?</a></p>
+    <div class="forgot-password flex-md-row flex-column gap-2 justify-content-between align-items-end my-2">
+      <p class="m-0"><a routerLink="/register">Registre-se</a></p>
+      <p class="m-0"><a routerLink="/forgot-password">Esqueceu sua senha?</a></p>
     </div>
 
     <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Login</button>

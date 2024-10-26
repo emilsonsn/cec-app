@@ -5,6 +5,7 @@ import { ForgotPasswordComponent } from '@app/views/session/forgot-password/forg
 import { PasswordRecoveryComponent } from '@app/views/session/password-recovery/password-recovery.component';
 import { AssignComponent } from './assign/assign.component';
 import { permissionGuard } from '@app/guards/permission.guard';
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   {
@@ -15,7 +16,10 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
   },
-
+  {
+    path: 'register',
+    component: RegisterComponent,
+  },
   {
     path: 'forgot-password',
     component: ForgotPasswordComponent,

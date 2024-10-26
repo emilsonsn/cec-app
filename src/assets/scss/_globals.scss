@@ -143,8 +143,8 @@ mat-form-field {
   border: none;
   color: $white-100;
 
-  &.yellow {
-    background-color: $primary;
+  &.primary {
+    background-color: $secondary;
 
     &:hover {
       opacity: 0.9;

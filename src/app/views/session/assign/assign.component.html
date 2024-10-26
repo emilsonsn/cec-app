@@ -10,24 +10,59 @@
   </app-account-manager>
 </div>
 
-<div id="assign" class="w-100 h-100" [ngStyle]="{ display: isToAssign ? 'block' : 'none' }">
-  <div id="header">
-    <div id="return" matRipple (click)="returnToAssign()">
-      <i class="fa-solid fa-arrow-left"></i> Voltar
+<div id="assign" class="w-100 h-100"  [ngStyle]="{ display: isToAssign ? 'block' : 'none' }"> <!--  -->
+  <div class="d-flex flex-column">
+
+    <div id="header" style="height: 7vh;">
+      <div id="return" matRipple (click)="returnToAssign()">
+        <i class="fa-solid fa-arrow-left"></i> Voltar
+      </div>
+      <p id="text">Assinar documento</p>
     </div>
-    <p id="text">Assinar documento</p>
-  </div>
 
-  <div id="content">
-    <div id="file">
-      <div id="pdf-container" (click)="getCoordinates($event)">
+    <div id="templatePdf" style="height: 86vh;">
+      <div id="contentPdf" style="height: inherit;">
 
-        <div class="assing-model">
-          <p>Assinatura</p>
-        </div>
+        <pdf-viewer
+          #pdfViewer
+          [src]="pdfSrc"
+          [render-text]="true"
+          [autoresize]="true" [fit-to-page]="true"
+          [original-size]="false"
+          (page-rendered)="addClickEventToCanva($event)"
+          style="width: 100%; height: 100%; min-height: 500px;">
+        </pdf-viewer>
 
-        <pdf-viewer class="pdf-viewer" [src]="pdfSrc" [original-size]="true" [render-text]="true"></pdf-viewer>
       </div>
     </div>
+
+    <div id="footer" style="height: 7vh;">
+
+      <div id="submit" matRipple (click)="returnToAssign()">
+        Assinar <i class="fa-solid fa-arrow-right"></i>
+      </div>
+
+    </div>
   </div>
+
 </div>
+
+<!-- <div id="pdf-container" (click)="getCoordinates($event)">
+
+  <div class="assing-model">
+    <p>Assinatura</p>
+  </div>
+
+  <pdf-viewer class="pdf-viewer" [src]="pdfSrc" (pageChange)="test($event)" [original-size]="true" [render-text]="true"></pdf-viewer>
+</div> -->
+<!-- <pdf-viewer
+class="pdf-viewer"
+[src]="pdfSrc"
+[render-text]="true"
+(after-load-complete)="onPdfLoad($event)"
+(page-rendered)="onPageRendered($event)"
+(page-change)="onPageChange($event)">
+</pdf-viewer> -->
+
+
+
