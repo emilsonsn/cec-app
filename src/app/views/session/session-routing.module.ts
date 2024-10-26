@@ -1,35 +1,41 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {LoginComponent} from "@app/views/session/login/login.component";
-import {ForgotPasswordComponent} from "@app/views/session/forgot-password/forgot-password.component";
-import {PasswordRecoveryComponent} from "@app/views/session/password-recovery/password-recovery.component";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from '@app/views/session/login/login.component';
+import { ForgotPasswordComponent } from '@app/views/session/forgot-password/forgot-password.component';
+import { PasswordRecoveryComponent } from '@app/views/session/password-recovery/password-recovery.component';
 import { AssignComponent } from './assign/assign.component';
+import { permissionGuard } from '@app/guards/permission.guard';
 
 const routes: Routes = [
-
   {
     path: '',
-    component: AssignComponent
+    component: LoginComponent,
   },
-
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
   },
 
   {
     path: 'forgot-password',
-    component: ForgotPasswordComponent
+    component: ForgotPasswordComponent,
   },
   {
     path: 'password_recovery',
-    component: PasswordRecoveryComponent
+    component: PasswordRecoveryComponent,
+  },
+  {
+    path: 'assign',
+    component: AssignComponent,
+    canActivate: [permissionGuard],
+    // data: {
+    //   page: 'assign',
+    // },
   },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class SessionRoutingModule {
-}
+export class SessionRoutingModule {}

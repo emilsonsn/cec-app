@@ -1,0 +1,18 @@
+@import "_variables";
+
+
+.status {
+  font-weight: 600!important;
+
+  &.false {
+    color: $red;
+  }
+
+  &.true {
+    color: $green;
+  }
+
+  &.requestfinance {
+    color: $teal;
+  }
+}

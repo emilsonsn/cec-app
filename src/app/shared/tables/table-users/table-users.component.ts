@@ -24,6 +24,12 @@ export class TableUserComponent {
   onUserClick: EventEmitter<User> = new EventEmitter<User>();
 
   @Output()
+  onEditUserLimitClick: EventEmitter<User> = new EventEmitter<User>();
+
+  @Output()
+  onBlockUserClick: EventEmitter<User> = new EventEmitter<User>();
+
+  @Output()
   onDeleteUserClick: EventEmitter<number> = new EventEmitter<number>();
 
   public users: User[] = [];
@@ -34,6 +40,24 @@ export class TableUserComponent {
       order: true,
       title: "Nome",
       align: "start",
+    },
+    {
+      slug: "email",
+      order: true,
+      title: "E-mail",
+      align: "justify-content-center",
+    },
+    {
+      slug: "whatsapp",
+      order: true,
+      title: "Whatsapp",
+      align: "justify-content-center",
+    },
+    {
+      slug: "phone",
+      order: true,
+      title: "Telefone",
+      align: "justify-content-center",
     },
     {
       slug: "cpf_cnpj",
@@ -48,27 +72,21 @@ export class TableUserComponent {
       align: "justify-content-center",
     },
     {
-      slug: "position",
+      slug: "is_active",
       order: true,
-      title: "Cargo",
+      title: "Status",
       align: "justify-content-center",
     },
     {
-      slug: "sector",
+      slug: "is_admin",
       order: true,
-      title: "Setor",
+      title: "Admin",
       align: "justify-content-center",
     },
     {
-      slug: "cellphone",
+      slug: "file_limit",
       order: true,
-      title: "Whatsapp",
-      align: "justify-content-center",
-    },
-    {
-      slug: "email",
-      order: true,
-      title: "E-mail",
+      title: "Limite de Arquivos",
       align: "justify-content-center",
     },
     {

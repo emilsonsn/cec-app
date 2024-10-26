@@ -45,7 +45,7 @@
             >
               <td>
                 <div
-                  class="d-flex align-items-center gap-2"
+                  class="d-flex align-items-center gap-3"
                   style="white-space: nowrap"
                 >
                   <app-avatar
@@ -53,53 +53,74 @@
                     [altText]="collaborator?.name"
                     [color]="'#e7b403'"
                     [onCircle]="true"
-                  ></app-avatar>
-                  {{ collaborator?.name }}
-                </div>
-              </td>
-              <td>
-                <div class="text-center">
+                    ></app-avatar>
+                    {{ collaborator?.name }}
+                  </div>
+                </td>
+                <td>
+                  <div class="text-center" style="white-space: nowrap;">
+                    {{ collaborator?.email }}
+                  </div>
+                </td>
+                <td>
+                  <div class="text-center" style="white-space: nowrap;">
+                    {{ collaborator?.whatsapp | phoneMask }}
+                  </div>
+                </td>
+                <td>
+                  <div class="text-center" style="white-space: nowrap;">
+                    {{ collaborator?.phone | phoneMask }}
+                  </div>
+                </td>
+                <td>
+                <div class="text-center" style="white-space: nowrap;">
                   {{ collaborator?.cpf_cnpj | cpfCnpjMask }}
                 </div>
               </td>
               <td>
-                <div class="text-center">
+                <div class="text-center" style="white-space: nowrap;">
                   {{ collaborator?.birth_date | date: "dd/MM/YYYY" }}
                 </div>
               </td>
               <td>
                 <div class="text-center">
-                  {{ collaborator?.company_position?.position }}
+                  <div class="status" [ngClass]="+collaborator.is_active ? 'true' : 'false'">
+                    {{ +collaborator?.is_active ? "Ativo" : "Inativo" }}
+                  </div>
                 </div>
               </td>
               <td>
                 <div class="text-center">
-                  {{ collaborator?.sector?.sector }}
+                  <div class="status" [ngClass]="+collaborator.is_admin ? 'true' : 'false'">
+                    {{ collaborator?.is_admin ? "SIM" : "NÃO" }}
+                  </div>
                 </div>
               </td>
               <td>
-                <div class="text-center">
-                  {{ collaborator?.whatsapp | phoneMask }}
-                </div>
-              </td>
-              <td>
-                <div class="text-center">
-                  {{ collaborator?.email }}
+                <div class="text-center" style="white-space: nowrap;">
+                  {{ collaborator?.file_limit }}
                 </div>
               </td>
               <td>
                 <div class="d-flex justify-content-end">
-                  <div matRipple class="buttonTemplate" (click)="onUserClick.emit(collaborator)">
-                    <i class="fa-solid fa-eye"></i>
-                  </div>
 
-                  <div matRipple class="buttonTemplate" (click)="onUserClick.emit(collaborator)">
+                  <!-- <div matRipple class="buttonTemplate" (click)="onUserClick.emit(collaborator)">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                  </div> -->
+
+                  <div matRipple class="buttonTemplate" matTooltip="Alterar Limite" (click)="onEditUserLimitClick.emit(collaborator)">
                     <i class="fa-solid fa-pen-to-square"></i>
                   </div>
 
-                  <div matRipple class="buttonTemplate" (click)="onDeleteUserClick.emit(collaborator?.id)">
-                    <i class="fa-solid fa-trash"></i>
+                  <div matRipple class="buttonTemplate trash" matTooltip="{{+collaborator?.is_active ? 'Bloquear' : 'Desbloquear'}}" (click)="onBlockUserClick.emit(collaborator)">
+                    @if(+collaborator?.is_active) {
+                      <i class="fa-solid fa-lock"></i>
+                    }
+                    @else {
+                      <i class="fa-solid fa-lock-open"></i>
+                    }
                   </div>
+
                 </div>
               </td>
             </tr>

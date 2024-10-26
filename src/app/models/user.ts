@@ -14,6 +14,9 @@ export interface User {
   updatedAt : string;
   admin?: boolean;
   photo?: string;
+  is_admin?;
+  is_active?
+  file_limit?;
 
   sector?: UserSector;
   company_position?: UserPosition;

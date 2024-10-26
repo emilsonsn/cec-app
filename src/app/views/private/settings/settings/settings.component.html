@@ -1,0 +1,21 @@
+<div>
+  <form [formGroup]="form">
+    <div class="row">
+      <div class="col-lg-4 col-md-6">
+        <mat-form-field appearance="outline">
+          <mat-label>Limite</mat-label>
+          <input matInput type="text" formControlName="limit" mask="0*">
+        </mat-form-field>
+      </div>
+
+    </div>
+
+    <div class="d-flex justify-content-end flex-wrap-reverse gap-3 my-3">
+      @if(loading) {
+        <mat-spinner class="spinner mx-auto me-4" diameter="40"></mat-spinner>
+      }
+
+      <button matRipple id="submit" class="button" style="background-color: #39b919; width: 8rem; font-weight: 500;" (click)="onSubmit()">Salvar</button>
+    </div>
+  </form>
+</div>

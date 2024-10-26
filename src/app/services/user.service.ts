@@ -114,4 +114,16 @@ export class UserService {
   updatePassword(data: { code: string, password: string }): Observable<any> {
     return this._http.post<any>(`${environment.api}/updatePassword`, data);
   }
+
+  // CEC
+  public blockUser(user: User): Observable<ApiResponse<User>> {
+    return this._http.post<ApiResponse<User>>(`${environment.api}/${this.sessionEndpoint}/block/${user?.id}`, user);
+  }
+
+  public changeLimit(changeLimit): Observable<ApiResponse<User>> {
+    return this._http.post<ApiResponse<User>>(`${environment.api}/${this.sessionEndpoint}/change-limit/${changeLimit?.user_id}`, {file_limit : changeLimit.file_limit});
+  }
+
+
+
 }

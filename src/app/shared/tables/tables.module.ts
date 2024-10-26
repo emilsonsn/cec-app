@@ -20,6 +20,7 @@ import { TableTypeUserSectorComponent } from './table-type-user-sector/table-typ
 import { TableUserComponent } from './table-users/table-users.component';
 import {SharedModule} from "@shared/shared.module";
 import {AvatarModule} from "@shared/components/avatar/avatar.module";
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const tables = [
   TableOrdersComponent,
@@ -48,6 +49,7 @@ const tables = [
     MatButtonModule,
     MatProgressSpinnerModule,
     MatRippleModule,
+    MatTooltipModule,
     PipesModule,
     AvatarModule,
   ],

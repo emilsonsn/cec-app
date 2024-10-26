@@ -58,10 +58,10 @@ export class LoginComponent {
         this.user = user;
       });
 
-      if(this.user?.company_position?.position === 'Requester')
-        this._router.navigate(['/painel/orders']);
+      if(!this.user.is_admin)
+        this._router.navigate(['/assign']);
       else
-        this._router.navigate(['/painel/home']);
+        this._router.navigate(['/painel/']);
     }
   }
 

@@ -1,13 +1,14 @@
-import {Component} from '@angular/core';
-import {MatDialog} from '@angular/material/dialog';
-import {Router} from '@angular/router';
-import {DialogCollaboratorComponent} from '@shared/dialogs/dialog-collaborator/dialog-collaborator.component';
-import {DialogConfirmComponent} from '@shared/dialogs/dialog-confirm/dialog-confirm.component';
-import {ToastrService} from 'ngx-toastr';
-import {finalize} from 'rxjs';
-import {ISmallInformationCard} from '@models/cardInformation';
-import {User} from '@models/user';
-import {UserService} from '@services/user.service';
+import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+import { DialogCollaboratorComponent } from '@shared/dialogs/dialog-collaborator/dialog-collaborator.component';
+import { DialogConfirmComponent } from '@shared/dialogs/dialog-confirm/dialog-confirm.component';
+import { ToastrService } from 'ngx-toastr';
+import { finalize } from 'rxjs';
+import { ISmallInformationCard } from '@models/cardInformation';
+import { User } from '@models/user';
+import { UserService } from '@services/user.service';
+import { DialogEditLimitComponent } from '@shared/dialogs/dialog-edit-limit/dialog-edit-limit.component';
 
 @Component({
   selector: 'app-collaborator',
@@ -22,35 +23,34 @@ export class CollaboratorComponent {
       icon: 'fa-solid fa-circle-check',
       background: '#4CA750',
       title: '0',
-      category: 'Colaboradores',
-      description: 'Colaboradores ativos',
+      category: 'Usuários',
+      description: 'Usuários ativos',
     },
     {
       icon: 'fa-solid fa-ban',
       background: '#dc3545',
       title: '0',
       category: 'Colaboradores',
-      description: 'Colaboradores bloqueados',
+      description: 'Usuários bloqueados',
     },
     {
       icon: 'fa-solid fa-users',
       // background: '#dc3545',
       title: '0',
-      category: 'Colaboradores',
-      description: 'Colaboradores totais',
+      category: 'Usuários',
+      description: 'Usuários totais',
     },
-  ]
+  ];
 
   constructor(
     private readonly _dialog: MatDialog,
     private readonly _toastr: ToastrService,
     private readonly _router: Router,
     private readonly _userService: UserService
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
-    this._getCards();
+    // this._getCards();
   }
 
   private _initOrStopLoading(): void {
@@ -60,7 +60,7 @@ export class CollaboratorComponent {
   openDialogCollaborator(user?: User) {
     this._dialog
       .open(DialogCollaboratorComponent, {
-        data: {user},
+        data: { user },
         width: '80%',
         maxWidth: '850px',
         maxHeight: '90%',
@@ -92,24 +92,24 @@ export class CollaboratorComponent {
               icon: 'fa-solid fa-circle-check',
               background: '#4CA750',
               title: `${res.data.active}`,
-              category: 'Colaboradores',
-              description: 'Colaboradores ativos',
+              category: 'Usuários',
+              description: 'Usuários ativos',
             },
             {
               icon: 'fa-solid fa-ban',
               background: '#dc3545',
               title: `${res.data.inactive}`,
-              category: 'Colaboradores',
-              description: 'Colaboradores bloqueados',
+              category: 'Usuários',
+              description: 'Usuários bloqueados',
             },
             {
               icon: 'fa-solid fa-users',
               // background: '#dc3545',
               title: `${res.data.total}`,
-              category: 'Colaboradores',
-              description: 'Colaboradores totais',
+              category: 'Usuários',
+              description: 'Usuários totais',
             },
-          ]
+          ];
         },
         error: (err) => {
           this._toastr.error(err.error.error);
@@ -156,7 +156,7 @@ export class CollaboratorComponent {
   onDeleteCollaborator(id: number) {
     const text = 'Tem certeza? Essa ação não pode ser revertida!';
     this._dialog
-      .open(DialogConfirmComponent, {data: {text}})
+      .open(DialogConfirmComponent, { data: { text } })
       .afterClosed()
       .subscribe((res: boolean) => {
         if (res) {
@@ -169,6 +169,40 @@ export class CollaboratorComponent {
     this._initOrStopLoading();
     this._userService
       .deleteUser(id)
+      .pipe(finalize(() => this._initOrStopLoading()))
+      .subscribe({
+        next: (res) => {
+          this._toastr.success(res.message);
+        },
+        error: (err) => {
+          this._toastr.error(err.error.error);
+        },
+      });
+  }
+
+  protected editUserLimit(user: User) {
+    this._dialog
+      .open(DialogEditLimitComponent, {
+        data: { user },
+        width: '80%',
+        maxWidth: '850px',
+        maxHeight: '90%',
+      })
+      .afterClosed()
+      .subscribe((res) => {
+        if (res) {
+          this.loading = true;
+          setTimeout(() => {
+            this.loading = false;
+          }, 200);
+        }
+      });
+  }
+
+  protected blockUser(user: User) {
+    this._initOrStopLoading();
+    this._userService
+      .blockUser(user)
       .pipe(finalize(() => this._initOrStopLoading()))
       .subscribe({
         next: (res) => {
