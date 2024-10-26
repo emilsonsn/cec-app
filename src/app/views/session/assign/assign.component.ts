@@ -15,6 +15,7 @@ export class AssignComponent implements OnInit {
 
   protected isToAssign: boolean = true;
 
+  @ViewChild('fileInput') fileInput!: ElementRef;
   protected selectedFile: File | null = null;
 
   protected pdfSrc: string | Uint8Array | null = '';
@@ -26,7 +27,9 @@ export class AssignComponent implements OnInit {
     private readonly _toastr: ToastrService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    if(!this.pdfSrc) this.isToAssign = false;
+  }
 
   onFileSelected(event: any): void {
     const file = event.target.files[0];
@@ -44,6 +47,9 @@ export class AssignComponent implements OnInit {
 
   returnToAssign(): void {
     this.isToAssign = false;
+    this.selectedFile = null;
+    this.fileInput.nativeElement.value = '';
+    this.pdfSrc = '';
   }
 
   // PDF Viewer
