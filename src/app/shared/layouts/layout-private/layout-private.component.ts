@@ -25,7 +25,7 @@ export class LayoutPrivateComponent {
     },
     {
       label: 'Configurações',
-      icon: 'fa-solid fa-file',
+      icon: 'fa-solid fa-gear',
       route: '/painel/settings'
     },
   ]

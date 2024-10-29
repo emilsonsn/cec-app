@@ -105,9 +105,9 @@ export class RegisterComponent {
     formData.append('email', this.form.get('email')?.value);
     formData.append('password', this.form.get('password')?.value);
     formData.append('photo', this.profileImageFile);
-    formData.append('is_active', "1");
-    formData.append('is_admin', "0");
-    formData.append('file_limit', this.limit.toString());
+    // formData.append('is_active', "1");
+    // formData.append('is_admin', "0");
+    // formData.append('file_limit', this.limit.toString());
 
     return formData;
   }

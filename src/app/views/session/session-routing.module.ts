@@ -32,9 +32,9 @@ const routes: Routes = [
     path: 'assign',
     component: AssignComponent,
     canActivate: [permissionGuard],
-    // data: {
-    //   page: 'assign',
-    // },
+    data: {
+      page: 'assign',
+    },
   },
 ];
 
