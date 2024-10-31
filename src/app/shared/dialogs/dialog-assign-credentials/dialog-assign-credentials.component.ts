@@ -52,7 +52,7 @@ export class DialogAssignCredentialsComponent implements OnInit {
     });
 
     this.formCertificate = this._fb.group({
-      alias: [null, [Validators.required]],
+      certificate_alias: [null, [Validators.required]],
     });
   }
 

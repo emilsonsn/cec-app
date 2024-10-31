@@ -1,10 +1,12 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AssignService } from '@services/assign.service';
 import { DialogAssignCredentialsComponent } from '@shared/dialogs/dialog-assign-credentials/dialog-assign-credentials.component';
 import { SessionQuery } from '@store/session.query';
 import { SessionService } from '@store/session.service';
 import { AnimationOptions } from 'ngx-lottie';
 import { ToastrService } from 'ngx-toastr';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'assign',
@@ -33,8 +35,7 @@ export class AssignComponent implements OnInit {
 
   constructor(
     private readonly _toastr: ToastrService,
-    private readonly _sessionQuery: SessionQuery,
-    private readonly _sessionService: SessionService,
+    private readonly _assignService: AssignService,
     private readonly _dialog: MatDialog
   ) {}
 
@@ -66,19 +67,33 @@ export class AssignComponent implements OnInit {
   }
 
   protected assign(credentials) {
+    this._initOrStopLoading();
 
-    console.log({
-      file: this.selectedFile,
-      positionX: this.signaturePosition.x,
-      positionY: this.signaturePosition.y,
-      page: this.signaturePosition.page,
-      ...credentials,
-    });
-
+    this._assignService
+      .postFile({
+        file: this.selectedFile,
+        positionX: this.signaturePosition.x,
+        positionY: this.signaturePosition.y,
+        page: this.signaturePosition.page,
+        ...credentials,
+      })
+      .pipe(finalize(() => { this._initOrStopLoading(); }))
+      .subscribe({
+        next: (res) => {
+          this._toastr.success(res.message);
+        },
+        error: (err) => {
+          this._toastr.error(err.error.error);
+        },
+      });
   }
 
   protected onFileSelected(event: any): void {
     const file = event.target.files[0];
+    this.selectedFile = event.target.files[0];
+
+    console.log(this.selectedFile);
+
     if (file.type === 'application/pdf') {
       const reader = new FileReader();
       reader.onload = (e: any) => {

@@ -16,14 +16,19 @@ export class AssignService {
     private readonly _http: HttpClient
   ) { }
 
+  public getFiles(): any {
+    return this._http.get<ApiResponsePageable<any>>(`${environment.api}/file/search`);
+  }
+
+  public postFile(file): Observable<ApiResponse<any>> {
+    return this._http.post<ApiResponse<any>>(`${environment.api}/file/create`, file);
+  }
+
+  // Vault-ID (Certificados)
   public getCertificates(credentials): any {
     let params = Utils.mountPageControl(credentials);
 
     return this._http.get<ApiResponsePageable<any>>(`${environment.api}/vault-id/certificates?${params}`);
-  }
-
-  public patch(limit : number): Observable<ApiResponse<any>> {
-    return this._http.patch<ApiResponse<any>>(`${environment.api}/${this.endpoint}/`, {limit});
   }
 
 }
