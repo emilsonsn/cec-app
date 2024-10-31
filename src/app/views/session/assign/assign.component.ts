@@ -42,7 +42,7 @@ export class AssignComponent implements OnInit {
     if (!this.pdfSrc) this.isToAssign = false;
   }
 
-  protected submit() {
+  protected onSubmit() {
     const dialogConfig: MatDialogConfig = {
       width: '80%',
       maxWidth: '1000px',
@@ -59,13 +59,22 @@ export class AssignComponent implements OnInit {
       .subscribe({
         next: (res) => {
           if (res) {
-            this.loading = true;
-            setTimeout(() => {
-              this.loading = false;
-            }, 300);
+            this.assign(res);
           }
         },
       });
+  }
+
+  protected assign(credentials) {
+
+    console.log({
+      file: this.selectedFile,
+      positionX: this.signaturePosition.x,
+      positionY: this.signaturePosition.y,
+      page: this.signaturePosition.page,
+      ...credentials,
+    });
+
   }
 
   protected onFileSelected(event: any): void {

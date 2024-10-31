@@ -8,7 +8,7 @@ import {
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AssignService } from '@services/assign.service';
 import { ToastrService } from 'ngx-toastr';
-import { debounceTime, map, ReplaySubject, Subject, takeUntil } from 'rxjs';
+import { debounceTime, finalize, map, ReplaySubject, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-dialog-assign-credentials',
@@ -19,6 +19,8 @@ export class DialogAssignCredentialsComponent implements OnInit {
   protected form: FormGroup;
   protected formCertificate: FormGroup;
   protected isToShowCertificate: boolean = false;
+
+  protected access_token : string = '';
 
   // Certificates
   protected certificateSelect = [];
@@ -50,7 +52,7 @@ export class DialogAssignCredentialsComponent implements OnInit {
     });
 
     this.formCertificate = this._fb.group({
-      certificate: [null, [Validators.required]],
+      alias: [null, [Validators.required]],
     });
   }
 
@@ -66,32 +68,46 @@ export class DialogAssignCredentialsComponent implements OnInit {
     } else {
       if (!this.formCertificate.valid) return;
 
+      this.submitCredentials();
       console.log(this.formCertificate.getRawValue());
     }
   }
 
-  protected submitCredentials() {}
+  protected submitCredentials() {
+
+    this.dialogRef.close({
+      	...this.formCertificate.getRawValue(),
+        access_token : this.access_token
+    })
+
+  }
 
   // Getters
   protected searchCertificates() {
 
-    this._assignService.getCertificates({...this.form.getRawValue()}).subscribe({
-      next: (res) => {
-        this.certificateSelect = res.data;
-        this.isToShowCertificate = true;
+    this._initOrStopLoading();
 
-        this.filteredCertificates.next(this.certificateSelect.slice());
-      },
-      error: (err) => {
-        this._toastr.error(err.error.error);
-      },
-    });
+    this._assignService.getCertificates({...this.form.getRawValue()})
+      .pipe(finalize(() => {
+        this._initOrStopLoading();
+      }))
+      .subscribe({
+        next: (res) => {
+          this.certificateSelect = res.data.certificates;
+          this.access_token = res.data.access_token;
 
-    this.getCertificates();
-    this.prepareFilterCertificateCtrl();
+          this.isToShowCertificate = true;
+
+          this.filteredCertificates.next(this.certificateSelect.slice());
+          this.prepareFilterCertificateCtrl();
+        },
+        error: (err) => {
+          this._toastr.error(err.error.error);
+        },
+      });
+
   }
 
-  public getCertificates() {}
 
   // Utils
   public onCancel(): void {
@@ -114,7 +130,7 @@ export class DialogAssignCredentialsComponent implements OnInit {
           } else {
             search = search.toLowerCase();
             return this.certificateSelect.filter((certificate) =>
-              certificate.name.toLowerCase().includes(search)
+              certificate.alias.toLowerCase().includes(search)
             );
           }
         })
