@@ -86,6 +86,7 @@ main {
     background-color: $primary;
     color: white;
     text-transform: uppercase;
+    position: relative;
   }
 
 
@@ -93,5 +94,27 @@ main {
     .display-animation {
       display: none;
     }
+  }
+}
+
+.headerLogged {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  height: 4rem;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.3rem 0.8rem;
+
+  .perfil {
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 6px;
+    padding: 0 1rem;
+    color: black;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    cursor: pointer;
   }
 }

@@ -29,6 +29,10 @@ export class LoginComponent {
 
   }
 
+  ngOnInit() {
+    this._sessionService.getUserFromBack().subscribe();
+  }
+
   togglePasswordVisibility() {
     this.hide = !this.hide; // Alterna a visibilidade da senha
   }

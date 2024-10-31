@@ -8,6 +8,10 @@ import {
 import {MatDivider} from "@angular/material/divider";
 import {KanbanComponent} from "@shared/components/kanban/kanban.component";
 import {CdkDrag, CdkDragPlaceholder, CdkDropList, CdkDropListGroup} from "@angular/cdk/drag-drop";
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatRippleModule } from '@angular/material/core';
 
 const components: any[] = [
   AccountManagerComponent,
@@ -21,6 +25,10 @@ const components: any[] = [
     CommonModule,
     LottieComponent,
     MatDivider,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
+    MatRippleModule,
     CdkDropListGroup,
     CdkDropList,
     CdkDrag,

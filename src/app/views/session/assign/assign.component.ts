@@ -1,4 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DialogAssignCredentialsComponent } from '@shared/dialogs/dialog-assign-credentials/dialog-assign-credentials.component';
+import { SessionQuery } from '@store/session.query';
+import { SessionService } from '@store/session.service';
 import { AnimationOptions } from 'ngx-lottie';
 import { ToastrService } from 'ngx-toastr';
 
@@ -8,30 +12,63 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./assign.component.scss'],
 })
 export class AssignComponent implements OnInit {
+  // Controle de Componente
+  protected isToAssign: boolean = true;
 
+  // File
+  @ViewChild('fileInput') fileInput!: ElementRef;
+  protected selectedFile: File | null = null;
+  protected pdfSrc: string | Uint8Array | null = '';
+  // 'https://files.cercomp.ufg.br/weby/up/58/o/O_poder_do_Ha%CC%81bito.pdf.pdf';
+
+  // Assinatura
+  protected signaturePosition: { x: number; y: number; page: number } = null;
+
+  // Utils
   protected options: AnimationOptions = {
     path: '/assets/json/login_animation.json',
   };
 
-  protected isToAssign: boolean = true;
+  protected loading: boolean = false;
 
-  @ViewChild('fileInput') fileInput!: ElementRef;
-  protected selectedFile: File | null = null;
-
-  protected pdfSrc: string | Uint8Array | null = '';
-    // 'https://files.cercomp.ufg.br/weby/up/58/o/O_poder_do_Ha%CC%81bito.pdf.pdf';
-
-  protected signaturePosition: { x: number; y: number, page : number } = null;
-
-  constructor (
-    private readonly _toastr: ToastrService
+  constructor(
+    private readonly _toastr: ToastrService,
+    private readonly _sessionQuery: SessionQuery,
+    private readonly _sessionService: SessionService,
+    private readonly _dialog: MatDialog
   ) {}
 
   ngOnInit() {
-    if(!this.pdfSrc) this.isToAssign = false;
+    if (!this.pdfSrc) this.isToAssign = false;
   }
 
-  onFileSelected(event: any): void {
+  protected submit() {
+    const dialogConfig: MatDialogConfig = {
+      width: '80%',
+      maxWidth: '1000px',
+      maxHeight: '90%',
+      hasBackdrop: true,
+      closeOnNavigation: true,
+    };
+
+    this._dialog
+      .open(DialogAssignCredentialsComponent, {
+        ...dialogConfig,
+      })
+      .afterClosed()
+      .subscribe({
+        next: (res) => {
+          if (res) {
+            this.loading = true;
+            setTimeout(() => {
+              this.loading = false;
+            }, 300);
+          }
+        },
+      });
+  }
+
+  protected onFileSelected(event: any): void {
     const file = event.target.files[0];
     if (file.type === 'application/pdf') {
       const reader = new FileReader();
@@ -45,13 +82,6 @@ export class AssignComponent implements OnInit {
     }
   }
 
-  returnToAssign(): void {
-    this.isToAssign = false;
-    this.selectedFile = null;
-    this.fileInput.nativeElement.value = '';
-    this.pdfSrc = '';
-  }
-
   // PDF Viewer
 
   @ViewChild('pdfViewer', { static: false }) pdfViewerRef!: ElementRef;
@@ -61,7 +91,7 @@ export class AssignComponent implements OnInit {
   protected previosCtxSigned = null;
   protected previosCanvasUnsigned = null;
 
-  onCanvasClick(event: MouseEvent) {
+  protected onCanvasClick(event: MouseEvent) {
     if (!this.permitAssign) return;
 
     this.togglePermitToAssign();
@@ -78,13 +108,13 @@ export class AssignComponent implements OnInit {
     }
 
     // Armazena canvas antes da assinatura
-      this.previosCanvasUnsigned = document.createElement('canvas');
-      this.previosCanvasUnsigned.width = canvas.width;
-      this.previosCanvasUnsigned.height = canvas.height;
+    this.previosCanvasUnsigned = document.createElement('canvas');
+    this.previosCanvasUnsigned.width = canvas.width;
+    this.previosCanvasUnsigned.height = canvas.height;
 
-      this.previosCtxUnsigned = this.previosCanvasUnsigned.getContext('2d');
-      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      this.previosCtxUnsigned.putImageData(imgData, 0, 0);
+    this.previosCtxUnsigned = this.previosCanvasUnsigned.getContext('2d');
+    const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    this.previosCtxUnsigned.putImageData(imgData, 0, 0);
     //
 
     if (pageContainer) {
@@ -97,17 +127,16 @@ export class AssignComponent implements OnInit {
         ctx.drawImage(img, clickX, clickY, 140, 60); // (imagem, x, y, largura, altura)
       };
 
-
       // Armazena a referência ctx do canvas(Assinado)
-        this.previosCtxSigned = ctx;
+      this.previosCtxSigned = ctx;
       //
 
       console.log(`Posição X: ${clickX}, Y: ${clickY}, Página: ${pageNumber}`);
 
       this.signaturePosition = {
-        x : +clickX,
-        y : +clickY,
-        page : +pageNumber
+        x: +clickX,
+        y: +clickY,
+        page: +pageNumber,
       };
 
       this.togglePermitToAssign();
@@ -123,7 +152,19 @@ export class AssignComponent implements OnInit {
     );
   }
 
+  // Utils
+  public _initOrStopLoading() {
+    this.loading = !this.loading;
+  }
+
   protected togglePermitToAssign() {
     this.permitAssign = !this.permitAssign;
+  }
+
+  protected returnToAssign(): void {
+    this.isToAssign = false;
+    this.selectedFile = null;
+    this.fileInput.nativeElement.value = '';
+    this.pdfSrc = '';
   }
 }

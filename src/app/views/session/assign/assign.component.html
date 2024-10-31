@@ -1,5 +1,5 @@
 <div id="selectFile" class="w-100 h-100" [ngStyle]="{ display: isToAssign ? 'none' : 'block' }">
-  <app-account-manager [options]="options" primary_text="Assinar documento" [secondary_text]="true">
+  <app-account-manager [options]="options" primary_text="Assinar documento" [secondary_text]="true" [logged]="true">
     <div class="file-upload d-flex justify-content-center" style="width: 100%;">
       <input type="file" #fileInput hidden (change)="onFileSelected($event)">
       <button mat-raised-button color="outline" (click)="fileInput.click()">
@@ -38,7 +38,7 @@
 
     <div id="footer" style="height: 7vh;">
 
-      <div id="submit" matRipple (click)="returnToAssign()">
+      <div id="submit" matRipple (click)="submit()">
         Assinar <i class="fa-solid fa-arrow-right"></i>
       </div>
 

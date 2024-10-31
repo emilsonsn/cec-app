@@ -22,7 +22,7 @@ export class Utils {
 		return window && window.matchMedia('(max-width: 1199px)').matches;
 	}
 
-	static mountPageControl(pageControl: PageControl): string {
+	static mountPageControl(pageControl): string {
 		let result = '';
 
 		if (!pageControl) {

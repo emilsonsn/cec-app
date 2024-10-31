@@ -6,6 +6,8 @@ import { PasswordRecoveryComponent } from '@app/views/session/password-recovery/
 import { AssignComponent } from './assign/assign.component';
 import { permissionGuard } from '@app/guards/permission.guard';
 import { RegisterComponent } from './register/register.component';
+import { hasSessionGuard } from '@app/guards/has-session.guard';
+import { NormalUserGuard } from '@app/guards/normal-user.guard';
 
 const routes: Routes = [
   {
@@ -31,7 +33,7 @@ const routes: Routes = [
   {
     path: 'assign',
     component: AssignComponent,
-    canActivate: [permissionGuard],
+    canActivate: [NormalUserGuard],
     data: {
       page: 'assign',
     },

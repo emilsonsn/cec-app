@@ -38,6 +38,7 @@ import {MatIcon} from "@angular/material/icon";
 import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 import {DialogOrderSolicitationComponent} from './dialog-order-solicitation/dialog-order-solicitation.component';
 import { DialogEditLimitComponent } from './dialog-edit-limit/dialog-edit-limit.component';
+import { DialogAssignCredentialsComponent } from './dialog-assign-credentials/dialog-assign-credentials.component';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { DialogEditLimitComponent } from './dialog-edit-limit/dialog-edit-limit.
     DialogTypeUserSectorComponent,
     DialogTaskComponent,
     DialogOrderSolicitationComponent,
-    DialogEditLimitComponent
+    DialogEditLimitComponent,
+    DialogAssignCredentialsComponent,
   ],
   imports: [
     CommonModule,
