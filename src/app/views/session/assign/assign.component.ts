@@ -70,13 +70,7 @@ export class AssignComponent implements OnInit {
     this._initOrStopLoading();
 
     this._assignService
-      .postFile({
-        file: this.selectedFile,
-        positionX: this.signaturePosition.x,
-        positionY: this.signaturePosition.y,
-        page: this.signaturePosition.page,
-        ...credentials,
-      })
+      .postFile(this.prepareFormData(credentials))
       .pipe(finalize(() => { this._initOrStopLoading(); }))
       .subscribe({
         next: (res) => {
@@ -86,6 +80,19 @@ export class AssignComponent implements OnInit {
           this._toastr.error(err.error.error);
         },
       });
+  }
+
+  protected prepareFormData(credentials) {
+    const formData = new FormData();
+
+    formData.append('file', this.selectedFile);
+    formData.append('positionX', String(this.signaturePosition.x));
+    formData.append('positionY', String(this.signaturePosition.y));
+    formData.append('page', String(this.signaturePosition.page));
+    formData.append('access_token', String(credentials.access_token));
+    formData.append('certificate_alias', String(credentials.certificate_alias));
+
+    return formData;
   }
 
   protected onFileSelected(event: any): void {
