@@ -41,7 +41,10 @@
       </mat-tab>
       <mat-tab label="Minhas Assinaturas">
         <div class="tabTemplate">
-          <app-table-user-signatures style="width: 100%; overflow: auto; max-height: 15rem;"></app-table-user-signatures>
+          <h5 class="my-3 me-1" style="color: #3b3b3b; font-size: 1.2rem;">
+            Limite {{userFilesLength}}/{{user.file_limit}}
+          </h5>
+          <app-table-user-signatures style="width: 100%; overflow: auto; max-height: 15rem;" (filesLength)="filesLength($event)"></app-table-user-signatures>
         </div>
       </mat-tab>
     </mat-tab-group>
