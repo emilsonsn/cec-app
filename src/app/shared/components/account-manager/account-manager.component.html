@@ -4,11 +4,7 @@
       <div class="logo">
         <img src="./assets/images/logo.jpg" alt="logo">
       </div>
-      <div class="form-container">
-        <h2 style="width: 100%;" class="text-center">{{ primary_text }}</h2>
-        <p *ngIf="secondary_text" style="width: 100%;" class="text-center">
-          Assina seus documentos <br>de forma <span> <strong>gratúita</strong> </span> de forma fácil e rápida
-        </p>
+      <div class="form-container px-md-3 px-1 py-md-5 py-2">
         <ng-content></ng-content>
       </div>
     </div>
@@ -26,25 +22,6 @@
     </footer>
   </section>
   <section class="display-animation">
-    @if(logged) {
-      <div class="headerLogged">
-
-        <div class="perfil" matRipple [matRippleCentered]="true" [matMenuTriggerFor]="menu">
-          <i class="fa-solid fa-user"></i>
-          <span>{{user?.name}}</span>
-          <!-- <i class="fa-solid fa-angle-up"></i> -->
-          <i class="fa-solid fa-chevron-down"></i>
-        </div>
-
-        <mat-menu #menu="matMenu" xPosition="before">
-          <div mat-menu-item (click)="logout()" style="min-width: 150px; color: red;">
-            <i class="fa-solid fa-right-from-bracket" style="color: red;"></i>
-            Sair
-          </div>
-        </mat-menu>
-
-      </div>
-    }
     <ng-lottie width="500px" containerClass="moving-box" [options]="options" />
   </section>
 </main>

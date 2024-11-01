@@ -21,6 +21,7 @@ import { TableUserComponent } from './table-users/table-users.component';
 import {SharedModule} from "@shared/shared.module";
 import {AvatarModule} from "@shared/components/avatar/avatar.module";
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { TableUserSignaturesComponent } from './table-user-signatures/table-user-signatures.component';
 
 const tables = [
   TableOrdersComponent,
@@ -34,6 +35,7 @@ const tables = [
   TableTypeServiceComponent,
   TableUserComponent,
   TableTypeUserSectorComponent,
+  TableUserSignaturesComponent,
 ]
 
 @NgModule({

@@ -21,6 +21,7 @@ export class RegisterComponent {
   public loading: boolean = false;
   public loadingSetting : boolean = false;
   public utils = Utils;
+  protected isSuccess: boolean = false;
 
   // Form
   public form: FormGroup;
@@ -183,6 +184,10 @@ export class RegisterComponent {
 
   private _initOrStopLoadingSetting(): void {
     this.loadingSetting = !this.loadingSetting;
+  }
+
+  protected goToLogin() {
+    this._router.navigate(['/login']);
   }
 
 }

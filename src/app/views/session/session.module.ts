@@ -36,6 +36,8 @@ import {NgxMaskDirective, NgxMaskPipe} from 'ngx-mask';
 import {CurrencyMaskModule} from 'ng2-currency-mask';
 import {TablesModule} from '@shared/tables/tables.module';
 import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
+import {MatTabsModule} from '@angular/material/tabs';
+import { MatMenuModule } from '@angular/material/menu';
 
 
 @NgModule({
@@ -77,6 +79,8 @@ import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
     MatCheckboxModule,
     MatSlideToggleModule,
     MatProgressSpinnerModule,
+    MatTabsModule,
+    MatMenuModule,
     MatTooltipModule,
     MatDividerModule,
     MatRippleModule,

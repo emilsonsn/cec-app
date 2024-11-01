@@ -1,5 +1,5 @@
 <div class="template">
-  <div class="content">
+  <div class="content" [ngStyle]="{ display: !isSuccess ? 'block' : 'none' }">
     <div class="d-flex flex-column align-items-center justify-content-center">
       <div class="logo">
         <img src="./assets/images/logo.jpg" alt="logo">
@@ -103,6 +103,23 @@
 
     </div>
 
+  </div>
+
+  <div class="templateSuccess" [ngStyle]="{ display: isSuccess ? 'flex' : 'none' }">
+    <div class="content p-md-5 p-sm-4 p-3">
+      <div id="icon">
+        <i class="fa-regular fa-check-circle"></i>
+      </div>
+      <div class="my-5">
+        <h2>Cadastro Realizado!</h2>
+        <p class="m-0">Verifique seu e-mail para validação de e-mail!</p>
+      </div>
+
+      <div class="d-flex justify-content-end">
+        <button mat-raised-button color="primary" (click)="goToLogin()">Voltar para Login</button>
+      </div>
+
+    </div>
   </div>
 
 </div>

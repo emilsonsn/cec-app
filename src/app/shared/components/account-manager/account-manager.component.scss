@@ -26,7 +26,7 @@ main {
   }
 
   .form-section {
-    flex-grow: 0.5;
+    flex-grow: 1;
     display: flex;
     background: $secondary;
     color: white;
@@ -53,7 +53,6 @@ main {
         gap: 1rem;
         margin: auto 0;
         background-color: white;
-        padding: 4rem 1rem;
         border-radius: 8px;
 
         h2 {

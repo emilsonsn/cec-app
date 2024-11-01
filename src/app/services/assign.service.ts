@@ -16,8 +16,11 @@ export class AssignService {
     private readonly _http: HttpClient
   ) { }
 
-  public getFiles(): any {
-    return this._http.get<ApiResponsePageable<any>>(`${environment.api}/file/search`);
+  public getFiles(pageControl?: PageControl, filters?: any): any {
+    const paginate = Utils.mountPageControl(pageControl);
+    const filterParams = Utils.mountPageControl(filters);
+
+    return this._http.get<ApiResponsePageable<any>>(`${environment.api}/file/search?${paginate}${filterParams}`);
   }
 
   public postFile(file): Observable<ApiResponse<any>> {
