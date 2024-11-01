@@ -21,6 +21,9 @@ export class TableUserSignaturesComponent {
   @Input()
   filters: any;
 
+  @Output()
+  filesLength: EventEmitter<number> = new EventEmitter<number>();
+
   public files = [];
 
   public columns = [
@@ -99,7 +102,9 @@ export class TableUserSignaturesComponent {
       .pipe(finalize(() => this._initOrStopLoading()))
       .subscribe({
         next:res => {
-            this.files = res.data;
+          this.files = res.data;
+
+          this.filesLength.emit(this.files.length);
 
           this.pageControl.page = res.current_page - 1;
           this.pageControl.itemCount = res.total;

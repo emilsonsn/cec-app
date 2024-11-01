@@ -63,7 +63,7 @@ export class AssignComponent implements OnInit {
   protected onSubmit() {
     const dialogConfig: MatDialogConfig = {
       width: '80%',
-      maxWidth: '1000px',
+      maxWidth: '550px',
       maxHeight: '90%',
       hasBackdrop: true,
       closeOnNavigation: true,
@@ -145,7 +145,7 @@ export class AssignComponent implements OnInit {
   protected openDialogEditUser() {
     const dialogConfig: MatDialogConfig = {
       width: '80%',
-      maxWidth: '1000px',
+      maxWidth: '800px',
       maxHeight: '90%',
       hasBackdrop: true,
       closeOnNavigation: true,
@@ -259,6 +259,12 @@ export class AssignComponent implements OnInit {
 
   protected logout() {
     this._authService.logout();
+  }
+
+  protected userFilesLength : number;
+
+  protected filesLength(usedLimit) {
+    this.userFilesLength = usedLimit;
   }
 
 }

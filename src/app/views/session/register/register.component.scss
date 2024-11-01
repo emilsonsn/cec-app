@@ -93,6 +93,7 @@ mat-spinner {
   background-color: $secondary;
   height: 100%;
   flex-wrap: wrap;
+  overflow: auto;
 
   .content {
     max-width: 40rem;
