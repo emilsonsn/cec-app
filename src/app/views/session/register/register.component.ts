@@ -59,7 +59,7 @@ export class RegisterComponent {
   }
 
   public onSubmit(): void {
-    if (!this.form.valid || this.loading || !this.profileImage) {
+    if (!this.form.valid || this.loading) {
       this.form.markAllAsTouched();
       return;
     }

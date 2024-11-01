@@ -49,8 +49,10 @@ export class DialogCollaboratorComponent {
       phone: [null, [Validators.required]],
       whatsapp: [null, [Validators.required]],
       email: [null, [Validators.required]],
-      password: [null, [Validators.required]],
+      password: [null],
     });
+
+    this.form.get('email').disable();
 
     if (this._data?.user) {
       console.log(this._data.user);

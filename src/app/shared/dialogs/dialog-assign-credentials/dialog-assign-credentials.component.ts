@@ -21,6 +21,7 @@ export class DialogAssignCredentialsComponent implements OnInit {
   protected isToShowCertificate: boolean = false;
 
   protected access_token : string = '';
+  public title = 'Digite o código OTP'
 
   // Certificates
   protected certificateSelect = [];
@@ -47,7 +48,6 @@ export class DialogAssignCredentialsComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this._fb.group({
-      cpf_cnpj: [null, [Validators.required]],
       code_otp: [null, [Validators.required]],
     });
 
@@ -62,9 +62,7 @@ export class DialogAssignCredentialsComponent implements OnInit {
     if (!this.isToShowCertificate) {
       if (!this.form.valid) return;
 
-      this.searchCertificates();
-
-      console.log(this.form.getRawValue());
+      this.searchCertificates();      
     } else {
       if (!this.formCertificate.valid) return;
 
@@ -100,6 +98,8 @@ export class DialogAssignCredentialsComponent implements OnInit {
 
           this.filteredCertificates.next(this.certificateSelect.slice());
           this.prepareFilterCertificateCtrl();
+
+          this.title = 'Escolha a assinatura';
         },
         error: (err) => {
           this._toastr.error(err.error.error);

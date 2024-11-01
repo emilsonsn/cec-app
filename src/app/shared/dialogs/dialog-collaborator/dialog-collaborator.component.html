@@ -29,16 +29,18 @@
 
       <div class="col-12 mb-3">
         <mat-form-field appearance="outline">
-          <mat-label>Nome </mat-label>
-          <input matInput type="text" formControlName="name">
-        </mat-form-field>
-      </div>
-      <div class="col-12 mb-3">
-        <mat-form-field appearance="outline">
           <mat-label>E-mail </mat-label>
           <input matInput type="text" formControlName="email" mask="A*@A*.SSS" [validation]="true" [dropSpecialCharacters]="false">
         </mat-form-field>
       </div>
+
+      <div class="col-12 mb-3">
+        <mat-form-field appearance="outline">
+          <mat-label>Nome </mat-label>
+          <input matInput type="text" formControlName="name">
+        </mat-form-field>
+      </div>
+
       <div class="col-md-6 col-12 mb-3">
         <mat-form-field appearance="outline">
           <mat-label>CPF/CNPJ </mat-label>
@@ -70,13 +72,13 @@
       <div class="col-md-6 col-12 mb-3">
         <mat-form-field appearance="outline">
           <mat-label>Senha </mat-label>
-          <input type="password" formControlName="password" matInput title="Senha" required />
+          <input type="password" formControlName="password" matInput title="Senha" />
         </mat-form-field>
       </div>
       <div class="col-md-6 col-12 mb-3">
         <mat-form-field appearance="outline">
           <mat-label>Confirmação de Senha </mat-label>
-          <input type="password" [(ngModel)]="confirm_password" [ngModelOptions]="{standalone: true}" matInput title="Confirmação de Senha" required />
+          <input type="password" [(ngModel)]="confirm_password" [ngModelOptions]="{standalone: true}" matInput title="Confirmação de Senha" />
         </mat-form-field>
       </div>
     </div>
