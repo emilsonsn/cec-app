@@ -203,33 +203,37 @@ export class AssignComponent implements OnInit {
     this.previosCtxUnsigned = this.previosCanvasUnsigned.getContext('2d');
     const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     this.previosCtxUnsigned.putImageData(imgData, 0, 0);
-    //
 
     if (pageContainer) {
-      const pageNumber = pageContainer.getAttribute('data-page-number');
-      const rect = canvas.getBoundingClientRect();
-      const clickX = event.clientX - rect.left;
-      const clickY = event.clientY - rect.top;
+        const pageNumber = pageContainer.getAttribute('data-page-number');
+        const rect = canvas.getBoundingClientRect();
+        const clickX = event.clientX - rect.left;
+        const clickY = event.clientY - rect.top;
 
-      img.onload = function () {
-        ctx.drawImage(img, clickX, clickY, 107, 30); // (imagem, x, y, largura, altura)
-      };
+        // Calcula a posição em termos de porcentagem
+        const xPercent = (clickX / canvas.width) * 100;
+        const yPercent = (clickY / canvas.height) * 100;
 
-      // Armazena a referência ctx do canvas(Assinado)
-      this.previosCtxSigned = ctx;
-      //
+        img.onload = function () {
+            ctx.drawImage(img, clickX, clickY, 107, 30); // Exibe a imagem na posição clicada
+        };
 
-      console.log(`Posição X: ${clickX}, Y: ${clickY}, Página: ${pageNumber}`);
+        this.previosCtxSigned = ctx;
 
-      this.signaturePosition = {
-        x: +clickX,
-        y: +clickY,
-        page: +pageNumber,
-      };
+        console.log(`Posição X em %: ${xPercent}%, Y em %: ${yPercent}%, Página: ${pageNumber}`);
 
-      this.togglePermitToAssign();
+        // Armazena as coordenadas em porcentagem na propriedade signaturePosition
+        this.signaturePosition = {
+            x: xPercent,
+            y: yPercent,
+            page: +pageNumber,
+        };
+
+        this.togglePermitToAssign();
     }
   }
+
+
 
   // Pode ser necessário otimizar para que não crie listeners atoa
   protected addClickEventToCanva(e) {
