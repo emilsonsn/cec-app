@@ -34,7 +34,6 @@
             <button mat-raised-button color="outline" style="background-color: #1e2762; color: white;" (click)="fileInput.click()">
               <mat-icon>cloud_upload</mat-icon> Escolher Arquivo
             </button>
-            <span *ngIf="selectedFile">{{ selectedFile.name }}</span>
           </div>
         </div>
 
@@ -76,6 +75,12 @@
 
     <div id="footer" style="height: 7vh;">
 
+      @if(loading) {
+        <div class="me-auto me-sm-0 mb-sm-0 mb-2 loading">
+          <mat-spinner></mat-spinner>
+        </div>
+      }
+
       <div id="submit" matRipple (click)="onSubmit()">
         Assinar <i class="fa-solid fa-arrow-right"></i>
       </div>
@@ -92,11 +97,11 @@
       <div id="icon">
         <i class="fa-regular fa-check-circle"></i>
       </div>
-      <div class="my-5">
+      <div class="my-5" style="text-align: center;">
         <h2>Assinatura realizada com sucesso!</h2>
       </div>
 
-      <div class="d-flex justify-content-between">
+      <div class="d-flex justify-content-between flex-md-row flex-column gap-2">
         <button mat-raised-button color="primary" (click)="returnToAssign()">
           <i class="fa-solid fa-circle-left me-2"></i>Assinar outro documento
         </button>

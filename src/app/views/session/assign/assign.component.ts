@@ -61,6 +61,12 @@ export class AssignComponent implements OnInit {
   }
 
   protected onSubmit() {
+
+    if(!this.signaturePosition) {
+      this._toastr.error('Por favor, escolha o local da assinatura.');
+      return;
+    };
+
     const dialogConfig: MatDialogConfig = {
       width: '80%',
       maxWidth: '550px',
@@ -125,8 +131,6 @@ export class AssignComponent implements OnInit {
   protected onFileSelected(event: any): void {
     const file = event.target.files[0];
     this.selectedFile = event.target.files[0];
-
-    console.log(this.selectedFile);
 
     if (file.type === 'application/pdf') {
       const reader = new FileReader();
@@ -256,6 +260,7 @@ export class AssignComponent implements OnInit {
   protected returnToAssign(): void {
     this.isToAssign = false;
     this.successAssigned = false;
+    this.signaturePosition = null;
     this.selectedFile = null;
     this.fileInput.nativeElement.value = '';
     this.pdfSrc = '';

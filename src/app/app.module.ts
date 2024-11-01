@@ -1,19 +1,23 @@
-import {DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule} from '@angular/core';
+import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import player from 'lottie-web';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import {ToastrModule} from "ngx-toastr";
-import { MatMomentDateModule } from "@angular/material-moment-adapter";
-import {provideLottieOptions} from "ngx-lottie";
+import { ToastrModule } from 'ngx-toastr';
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS, MatMomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { provideLottieOptions } from 'ngx-lottie';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DATE_PIPE_DEFAULT_OPTIONS, registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
-import { provideNativeDateAdapter } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { provideNgxMask } from 'ngx-mask';
-import { CURRENCY_MASK_CONFIG, CurrencyMaskConfig, CurrencyMaskModule } from 'ng2-currency-mask';
+import {
+  CURRENCY_MASK_CONFIG,
+  CurrencyMaskConfig,
+  CurrencyMaskModule,
+} from 'ng2-currency-mask';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptorService } from '@services/auth-interceptor.service';
 import { BrowserstateInterceptor } from './interceptors/browserstate.interceptor';
@@ -23,19 +27,29 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 registerLocaleData(localePt, 'pt-BR');
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
-  align: "right",
+  align: 'right',
   allowNegative: true,
-  decimal: ",",
+  decimal: ',',
   precision: 2,
-  prefix: "R$ ",
-  suffix: "",
-  thousands: "."
+  prefix: 'R$ ',
+  suffix: '',
+  thousands: '.',
+};
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'DD/MM/YYYY',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
 };
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -44,7 +58,7 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     HttpClientModule,
     CurrencyMaskModule,
     ToastrModule.forRoot({
-      positionClass: 'toast-top-right'
+      positionClass: 'toast-top-right',
     }),
     NgbModule,
   ],
@@ -54,31 +68,42 @@ export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
     }),
     {
       provide: LOCALE_ID,
-      useValue: 'pt-BR'
+      useValue: 'pt-BR',
     },
     {
       provide: DEFAULT_CURRENCY_CODE,
-      useValue: 'BRL'
+      useValue: 'BRL',
     },
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: {
         appearance: 'outline',
         subscriptSizing: 'dynamic',
-      }
+      },
     },
     // {
     //   provide: DATE_PIPE_DEFAULT_OPTIONS,
     //   useValue: {timezone: '-0300'}
     // },
     { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptorService, multi: true },
-		{ provide: HTTP_INTERCEPTORS, useClass: BrowserstateInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BrowserstateInterceptor,
+      multi: true,
+    },
     provideAnimationsAsync(),
     provideAnimations(),
     provideNativeDateAdapter(),
-    provideNgxMask()
+    provideNgxMask(),
+    { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
+    { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

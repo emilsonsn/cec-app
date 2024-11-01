@@ -52,7 +52,7 @@
         <div class=" col-md-6 col-12 mb-3">
           <mat-form-field appearance="outline">
             <mat-label>Data de nascimento</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="birth_date" readonly>
+            <input matInput type="text" [matDatepicker]="picker" formControlName="birth_date" placeholder="DD/MM/YYYY">
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>
@@ -110,7 +110,7 @@
       <div id="icon">
         <i class="fa-regular fa-check-circle"></i>
       </div>
-      <div class="my-5">
+      <div class="my-5" style="text-align: center;">
         <h2>Cadastro Realizado!</h2>
         <p class="m-0">Verifique seu e-mail para validação de e-mail!</p>
       </div>

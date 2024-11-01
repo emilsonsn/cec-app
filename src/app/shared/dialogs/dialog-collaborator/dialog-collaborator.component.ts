@@ -52,6 +52,14 @@ export class DialogCollaboratorComponent {
       password: [null],
     });
 
+    this.form.get('birth_date').valueChanges.subscribe(data => {
+      const inputValue = data;
+      if (this.isValidDateFormat(data)) {
+        const [day, month, year] = inputValue.split('/').map(Number);
+        this.form.controls['birth_date'].setValue(new Date(year, month - 1, day));
+      }
+    });
+
     this.form.get('email').disable();
 
     if (this._data?.user) {
@@ -113,14 +121,7 @@ export class DialogCollaboratorComponent {
   // File
   onFileSelected(event: Event): void {
     const file = (event.target as HTMLInputElement).files?.[0];
-    if (file) {
-      this.profileImageFile = file;
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.profileImage = reader.result;
-      };
-      reader.readAsDataURL(file);
-    }
+    this.updateProfileImage(file);
   }
 
   triggerFileInput(): void {
@@ -142,6 +143,10 @@ export class DialogCollaboratorComponent {
     this.isDragOver = false;
 
     const file = event.dataTransfer?.files[0];
+    this.updateProfileImage(file);
+  }
+
+  updateProfileImage(file) {
     if (file) {
       this.profileImageFile = file;
       const reader = new FileReader();
@@ -165,4 +170,9 @@ export class DialogCollaboratorComponent {
   public onCancel(): void {
     this._dialogRef.close();
   }
+
+  protected isValidDateFormat(value: string): boolean {
+    return /^\d{2}\/\d{2}\/\d{4}$/.test(value);
+  }
+
 }

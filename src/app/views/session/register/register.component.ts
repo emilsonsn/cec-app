@@ -21,7 +21,7 @@ export class RegisterComponent {
   public loading: boolean = false;
   public loadingSetting : boolean = false;
   public utils = Utils;
-  protected isSuccess: boolean = false;
+  protected isSuccess: boolean = true;
 
   // Form
   public form: FormGroup;
@@ -56,6 +56,14 @@ export class RegisterComponent {
       email: [null, [Validators.required]],
     })
 
+    this.form.get('birth_date').valueChanges.subscribe(data => {
+      const inputValue = data;
+      if (this.isValidDateFormat(data)) {
+        const [day, month, year] = inputValue.split('/').map(Number);
+        this.form.controls['birth_date'].setValue(new Date(year, month - 1, day));
+      }
+    });
+
   }
 
   public onSubmit(): void {
@@ -80,7 +88,7 @@ export class RegisterComponent {
       .subscribe({
         next: (res) => {
           this._toastr.success(res.message);
-          this._router.navigate(['/login']);
+          this.isSuccess = true;
         },
         error: (err) => {
           this._toastr.error(err.error.error);
@@ -188,6 +196,10 @@ export class RegisterComponent {
 
   protected goToLogin() {
     this._router.navigate(['/login']);
+  }
+
+  protected isValidDateFormat(value: string): boolean {
+    return /^\d{2}\/\d{2}\/\d{4}$/.test(value);
   }
 
 }

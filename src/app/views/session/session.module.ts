@@ -12,7 +12,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { PasswordRecoveryComponent } from './password-recovery/password-recovery.component';
 import { AssignComponent } from './assign/assign.component';
 import { CdkDrag } from '@angular/cdk/drag-drop';
-import { MatRippleModule } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatRippleModule } from '@angular/material/core';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { RegisterComponent } from './register/register.component';
 import {ComponentsModule} from '@shared/components/components.module';
@@ -38,7 +38,7 @@ import {TablesModule} from '@shared/tables/tables.module';
 import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatMenuModule } from '@angular/material/menu';
-
+import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
 
 @NgModule({
   declarations: [
@@ -91,7 +91,8 @@ import { MatMenuModule } from '@angular/material/menu';
     NgxMaskPipe,
     NgxMatSelectSearchModule,
     MatIcon
-  ]
+  ],
+  providers: []
 })
 export class SessionModule {
 }
