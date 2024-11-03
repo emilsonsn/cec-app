@@ -183,6 +183,13 @@
   }
 }
 
+.tabContainer{
+  max-width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: auto;
+}
 .tabTemplate {
   display: flex;
   justify-content: center;

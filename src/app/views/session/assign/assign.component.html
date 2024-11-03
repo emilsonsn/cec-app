@@ -23,8 +23,6 @@
   </div>
 
   <app-account-manager [options]="options" primary_text="Assinar documento" [secondary_text]="true" [logged]="true">
-
-
     <mat-tab-group style="width: 100%; min-height: 15rem;">
       <mat-tab label="Assinar Documento">
         <div class="tabTemplate">
@@ -36,20 +34,19 @@
             </button>
           </div>
         </div>
-
       </mat-tab>
+
       <mat-tab label="Minhas Assinaturas">
         <div class="tabTemplate">
           <h5 class="my-3 me-1" style="color: #3b3b3b; font-size: 1.2rem;">
             Limite {{userFilesLength}}/{{user.file_limit}}
           </h5>
-          <app-table-user-signatures style="width: 100%; overflow: auto; max-height: 15rem;" (filesLength)="filesLength($event)"></app-table-user-signatures>
+          <app-table-user-signatures style="max-width: 100%; overflow-x: hidden; max-height: 15rem;" (filesLength)="filesLength($event)"></app-table-user-signatures>
         </div>
       </mat-tab>
     </mat-tab-group>
-
-
   </app-account-manager>
+
 </div>
 
 <div id="assign" class="w-100 h-100" [ngStyle]="{ display: (isToAssign && !successAssigned) ? 'block' : 'none' }">

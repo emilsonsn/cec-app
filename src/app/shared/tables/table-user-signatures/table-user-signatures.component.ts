@@ -37,13 +37,7 @@ export class TableUserSignaturesComponent {
       slug: "date",
       order: true,
       title: "Data",
-      align: "justify-content-center",
-    },
-    {
-      slug: "",
-      order: true,
-      title: "Ações",
-      align: "justify-content-center",
+      align: "center",
     },
   ];
 

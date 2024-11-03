@@ -40,25 +40,19 @@
             <tr
               class="table-line-hover"
               style="outline: none; cursor: pointer"
+              (click)="openFile(file)"
             >
               <td>
                 <div
                   class="d-flex align-items-center gap-2"
                   style="white-space: nowrap"
                 >
-                  {{ file?.filename }}
-                </div>
+                {{ file?.filename | slice:0:20 }}{{ file?.filename.length > 20 ? '...' : '' }}
+              </div>
               </td>
               <td>
-                <div class="text-center">
-                  {{ file?.created_at | date:'dd/mm/Y H:i:s' }}
-                </div>
-              </td>
-              <td>
-                <div class="d-flex justify-content-end">
-                  <div matRipple class="buttonTemplate" (click)="openFile(file)">
-                    <i class="fa-solid fa-file"></i>
-                  </div>
+                <div class="text-start">
+                  {{ file?.created_at | date:'dd/MM/yyyy HH:mm:ss' }}
                 </div>
               </td>
             </tr>
