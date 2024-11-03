@@ -2,8 +2,9 @@ declare const require: any;
 
 export const environment = {
   production: false,
-  appName: 'Granatum App',
+  appName: 'cec App',
   home: '/painel',
-  api: 'http://127.0.0.1:8000/api',
+  // api: 'http://127.0.0.1:8000/api',
+  api: 'https://assinador.certificadodigitalcec.com.br:3001/api',
   version: require('../../package.json').version
 };

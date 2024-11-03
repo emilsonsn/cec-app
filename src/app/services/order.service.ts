@@ -48,8 +48,8 @@ export class OrderService {
     return this._http.post<ApiResponse<RequestOrder>>(`${environment.api}/${this.sessionEndpoint}/${id}?_method=PATCH`, order);
   }
 
-  public throwToGranatum(id : number): Observable<ApiResponse<RequestOrder>> {
-    return this._http.post<ApiResponse<RequestOrder>>(`${environment.api}/${this.sessionEndpoint}/granatum/${id}`, {});
+  public throwTocec(id : number): Observable<ApiResponse<RequestOrder>> {
+    return this._http.post<ApiResponse<RequestOrder>>(`${environment.api}/${this.sessionEndpoint}/cec/${id}`, {});
   }
 
   public getBank(): Observable<ApiResponse<Banco[]>> {

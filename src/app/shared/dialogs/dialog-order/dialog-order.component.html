@@ -5,17 +5,17 @@
     <div class="d-flex align-items-center gap-2">
       @if(!isNewOrder) {
         <div id="headerButtons">
-          @if(_data.order.purchase_date && hasGranatum && !_data.order.has_granatum) {
-            <div matRipple class="headerBtn" (click)="throwToGranatum()">Lançar no Granatum</div>
+          @if(_data.order.purchase_date && hascec && !_data.order.has_cec) {
+            <div matRipple class="headerBtn" (click)="throwTocec()">Lançar no cec</div>
           }
 
-          @if(_data.order.has_granatum) {
+          @if(_data.order.has_cec) {
             <div matRipple class="btn btn-success">
               <i class="fa-solid fa-circle-check"></i>
-              Já lançado no granatum
+              Já lançado no cec
             </div>
           }
-          <div matRipple class="headerBtn" (click)="onSolicitation()" *ngIf="!_data.order.has_granatum" >Solicitar ao Financeiro</div>
+          <div matRipple class="headerBtn" (click)="onSolicitation()" *ngIf="!_data.order.has_cec" >Solicitar ao Financeiro</div>
         </div>
       }
 

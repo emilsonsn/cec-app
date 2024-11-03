@@ -66,7 +66,7 @@ export class DialogOrderComponent {
   public categories = signal<any[]>([]);
 
   public isAdmin = false; 
-  public hasGranatum = false; 
+  public hascec = false; 
   constructor(
     @Inject(MAT_DIALOG_DATA)
     protected readonly _data,
@@ -114,7 +114,7 @@ export class DialogOrderComponent {
     this.getSuppliers();
     this.getUsers();
     this.loadPermissions();
-    this.loadPermissionGranatum();
+    this.loadPermissioncec();
 
     if (this._data) {
       this.isNewOrder = false;
@@ -180,10 +180,10 @@ export class DialogOrderComponent {
     })
   }
 
-  public loadPermissionGranatum(){
+  public loadPermissioncec(){
     this._sessionQuery.user$.subscribe(user => {
       if(user && (user?.company_position.position === 'Financial' || user?.company_position.position === 'Admin')) {
-        this.hasGranatum = true;
+        this.hascec = true;
       }
     })
   }
@@ -454,10 +454,10 @@ export class DialogOrderComponent {
   }
 
   // Para pedidos existentes
-  public throwToGranatum() {
+  public throwTocec() {
     this._initOrStopLoading();
 
-    this._orderService.throwToGranatum(this._data.order.id)
+    this._orderService.throwTocec(this._data.order.id)
       .pipe(finalize(() => {
         this._initOrStopLoading();
       }))
