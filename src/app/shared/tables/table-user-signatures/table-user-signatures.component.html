@@ -46,12 +46,12 @@
                   class="d-flex align-items-center gap-2"
                   style="white-space: nowrap"
                 >
-                  {{ file?.name }}
+                  {{ file?.filename }}
                 </div>
               </td>
               <td>
                 <div class="text-center">
-                  {{ file?.date }}
+                  {{ file?.created_at | date:'dd/mm/Y H:i:s' }}
                 </div>
               </td>
               <td>

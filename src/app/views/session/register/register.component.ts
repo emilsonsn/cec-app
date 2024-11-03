@@ -64,6 +64,8 @@ export class RegisterComponent {
       }
     });
 
+    this.isSuccess = false;
+
   }
 
   public onSubmit(): void {

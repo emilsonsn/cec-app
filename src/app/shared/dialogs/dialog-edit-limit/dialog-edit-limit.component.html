@@ -1,7 +1,7 @@
 <mat-dialog-content>
 
   @if(loading) {
-    <div matRipple class="me-auto me-sm-0 mb-sm-0 mb-2 loading">
+    <div class="me-auto me-sm-0 mb-sm-0 mb-2 loading">
       <mat-spinner></mat-spinner>
     </div>
   }
@@ -16,7 +16,7 @@
   <mat-divider class="my-3"></mat-divider>
 
   <form [formGroup]="form" class="row">
-    <div class="col-md-6 mb-3">
+    <div class="col-md-12 mb-3">
       <mat-form-field appearance="outline">
         <mat-label>Limite </mat-label>
         <input matInput type="text" formControlName="file_limit" mask="0*">

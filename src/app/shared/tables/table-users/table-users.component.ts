@@ -48,12 +48,6 @@ export class TableUserComponent {
       align: "justify-content-center",
     },
     {
-      slug: "whatsapp",
-      order: true,
-      title: "Whatsapp",
-      align: "justify-content-center",
-    },
-    {
       slug: "phone",
       order: true,
       title: "Telefone",
@@ -65,12 +59,7 @@ export class TableUserComponent {
       title: "CPF/CNPJ",
       align: "justify-content-center",
     },
-    {
-      slug: "birth_date",
-      order: true,
-      title: "Data de nascimento",
-      align: "justify-content-center",
-    },
+
     {
       slug: "is_active",
       order: true,
@@ -78,15 +67,9 @@ export class TableUserComponent {
       align: "justify-content-center",
     },
     {
-      slug: "is_admin",
-      order: true,
-      title: "Admin",
-      align: "justify-content-center",
-    },
-    {
       slug: "file_limit",
       order: true,
-      title: "Limite de Arquivos",
+      title: "Limite mensal",
       align: "justify-content-center",
     },
     {

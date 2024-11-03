@@ -10,6 +10,12 @@
       </div>
     </div>
 
+    @if(loading) {
+      <div class="me-auto me-sm-0 mb-sm-0 mb-2 loading">
+        <mat-spinner></mat-spinner>
+      </div>
+    }
+
     <mat-divider class="my-3"></mat-divider>
 
     <form [formGroup]="form">
@@ -88,12 +94,6 @@
     <div id="templateButtons">
 
       <div class="d-flex flex-sm-row flex-column justify-content-end gap-3">
-        @if(loading) {
-        <div matRipple class="mx-sm-0 mx-auto">
-          <mat-spinner></mat-spinner>
-        </div>
-        }
-
         <div class="d-flex flex-sm-row flex-column gap-2">
           <button matRipple id="cancel" class="button cancel" (click)="onCancel()">Cancelar</button>
           <button matRipple id="submit" class="button primary" (click)="onSubmit()">Cadastrar</button>

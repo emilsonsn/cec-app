@@ -185,7 +185,7 @@ export class CollaboratorComponent {
       .open(DialogEditLimitComponent, {
         data: { user },
         width: '80%',
-        maxWidth: '850px',
+        maxWidth: '500px',
         maxHeight: '90%',
       })
       .afterClosed()

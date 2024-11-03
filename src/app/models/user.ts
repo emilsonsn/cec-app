@@ -14,6 +14,7 @@ export interface User {
   updatedAt : string;
   admin?: boolean;
   photo?: string;
+  files?: [];
   is_admin?;
   is_active?
   file_limit?;

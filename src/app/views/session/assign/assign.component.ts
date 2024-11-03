@@ -78,6 +78,7 @@ export class AssignComponent implements OnInit {
     this._dialog
       .open(DialogAssignCredentialsComponent, {
         ...dialogConfig,
+        disableClose: true,
       })
       .afterClosed()
       .subscribe({

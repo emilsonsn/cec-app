@@ -64,22 +64,12 @@
                 </td>
                 <td>
                   <div class="text-center" style="white-space: nowrap;">
-                    {{ collaborator?.whatsapp | phoneMask }}
-                  </div>
-                </td>
-                <td>
-                  <div class="text-center" style="white-space: nowrap;">
                     {{ collaborator?.phone | phoneMask }}
                   </div>
                 </td>
                 <td>
                 <div class="text-center" style="white-space: nowrap;">
                   {{ collaborator?.cpf_cnpj | cpfCnpjMask }}
-                </div>
-              </td>
-              <td>
-                <div class="text-center" style="white-space: nowrap;">
-                  {{ collaborator?.birth_date | date: "dd/MM/YYYY" }}
                 </div>
               </td>
               <td>
@@ -90,15 +80,8 @@
                 </div>
               </td>
               <td>
-                <div class="text-center">
-                  <div class="status" [ngClass]="+collaborator.is_admin ? 'true' : 'false'">
-                    {{ collaborator?.is_admin ? "SIM" : "NÃO" }}
-                  </div>
-                </div>
-              </td>
-              <td>
                 <div class="text-center" style="white-space: nowrap;">
-                  {{ collaborator?.file_limit }}
+                  {{ collaborator.files.length + '/' + collaborator?.file_limit }}
                 </div>
               </td>
               <td>
