@@ -1,5 +1,9 @@
 @import 'variables';
 
+html {
+  min-width: fit-content;
+}
+
 html,
 body {
   height: 100%;

@@ -178,9 +178,19 @@
     }
 
     @media (max-width: 860px) {
-      top: 8rem;
+      top: 6rem;
     }
   }
+}
+
+.display-animation {
+  display: flex;
+  justify-content: center;
+  width: 65%;
+  background-color: $primary;
+  color: white;
+  text-transform: uppercase;
+  position: relative;
 }
 
 .tabContainer{
@@ -231,6 +241,43 @@
     }
   }
 
+}
+
+#template {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+
+  #content {
+    display: flex;
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.templateTabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $secondary;
+  height: 100%;
+  padding: 2rem;
+  width: 45%;
+
+  .contentTabs {
+    border-radius: 8px;
+    padding: 1rem;
+    background-color: #fff;
+    width: 100%;
+    min-height: 21rem;
+
+  }
+
+  @media(max-width: 1200px) {
+    width: 100%;
+  }
 }
 
 // Não tira isso aqui. Por algum motivo o evento do click no canvas só funciona se tiver isso ai

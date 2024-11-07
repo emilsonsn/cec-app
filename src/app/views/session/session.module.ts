@@ -39,6 +39,7 @@ import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 import {MatTabsModule} from '@angular/material/tabs';
 import { MatMenuModule } from '@angular/material/menu';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { LottieComponent } from 'ngx-lottie';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MAT_MOMENT_DATE_FORMATS, MomentDateAda
     MatButton,
     MatRippleModule,
     PdfViewerModule,
+    LottieComponent,
     ComponentsModule,
     DirectivesModule,
     ClipboardModule,

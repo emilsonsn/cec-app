@@ -20,7 +20,7 @@ import { finalize } from 'rxjs';
 export class AssignComponent implements OnInit {
   // Controle de Componente
   protected isToAssign: boolean = true;
-  protected successAssigned : boolean = false;
+  protected successAssigned: boolean = false;
 
   // File
   @ViewChild('fileInput') fileInput!: ElementRef;
@@ -31,7 +31,7 @@ export class AssignComponent implements OnInit {
   // Assinatura
   protected signaturePosition: { x: number; y: number; page: number } = null;
 
-  protected urlAssignedDoc : string = '';
+  protected urlAssignedDoc: string = '';
 
   // Utils
   protected options: AnimationOptions = {
@@ -48,8 +48,8 @@ export class AssignComponent implements OnInit {
     private readonly _dialog: MatDialog,
     private readonly _sessionQuery: SessionQuery,
     private readonly _authService: AuthService,
-    private readonly _sessionService : SessionService,
-    private readonly _sessionStore : SessionStore,
+    private readonly _sessionService: SessionService,
+    private readonly _sessionStore: SessionStore
   ) {}
 
   ngOnInit() {
@@ -61,11 +61,10 @@ export class AssignComponent implements OnInit {
   }
 
   protected onSubmit() {
-
-    if(!this.signaturePosition) {
+    if (!this.signaturePosition) {
       this._toastr.error('Por favor, escolha o local da assinatura.');
       return;
-    };
+    }
 
     const dialogConfig: MatDialogConfig = {
       width: '80%',
@@ -159,7 +158,7 @@ export class AssignComponent implements OnInit {
     this._dialog
       .open(DialogCollaboratorComponent, {
         data: {
-          user : this.user ?? null
+          user: this.user ?? null,
         },
         ...dialogConfig,
       })
@@ -210,35 +209,36 @@ export class AssignComponent implements OnInit {
     this.previosCtxUnsigned.putImageData(imgData, 0, 0);
 
     if (pageContainer) {
-        const pageNumber = pageContainer.getAttribute('data-page-number');
-        const rect = canvas.getBoundingClientRect();
-        const clickX = event.clientX - rect.left;
-        const clickY = event.clientY - rect.top;
+      const pageNumber = pageContainer.getAttribute('data-page-number');
+      const rect = canvas.getBoundingClientRect();
+      const scale = window.devicePixelRatio || 1;
+      const clickX = (event.clientX - rect.left) * scale;
+      const clickY = (event.clientY - rect.top) * scale;
 
-        // Calcula a posição em termos de porcentagem
-        const xPercent = (clickX / canvas.width) * 100;
-        const yPercent = (clickY / canvas.height) * 100;
+      // Calcula a posição em termos de porcentagem
+      const xPercent = (clickX / canvas.width) * 100;
+      const yPercent = (clickY / canvas.height) * 100;
 
-        img.onload = function () {
-            ctx.drawImage(img, clickX, clickY, 107, 30); // Exibe a imagem na posição clicada
-        };
+      img.onload = function () {
+        ctx.drawImage(img, clickX, clickY, 107, 30); // Exibe a imagem na posição clicada
+      };
 
-        this.previosCtxSigned = ctx;
+      this.previosCtxSigned = ctx;
 
-        console.log(`Posição X em %: ${xPercent}%, Y em %: ${yPercent}%, Página: ${pageNumber}`);
+      console.log(
+        `Posição X em %: ${xPercent}%, Y em %: ${yPercent}%, Página: ${pageNumber}`
+      );
 
-        // Armazena as coordenadas em porcentagem na propriedade signaturePosition
-        this.signaturePosition = {
-            x: xPercent,
-            y: yPercent,
-            page: +pageNumber,
-        };
+      // Armazena as coordenadas em porcentagem na propriedade signaturePosition
+      this.signaturePosition = {
+        x: xPercent,
+        y: yPercent,
+        page: +pageNumber,
+      };
 
-        this.togglePermitToAssign();
+      this.togglePermitToAssign();
     }
   }
-
-
 
   // Pode ser necessário otimizar para que não crie listeners atoa
   protected addClickEventToCanva(e) {
@@ -271,10 +271,9 @@ export class AssignComponent implements OnInit {
     this._authService.logout();
   }
 
-  protected userFilesLength : number;
+  protected userFilesLength: number;
 
   protected filesLength(usedLimit) {
     this.userFilesLength = usedLimit;
   }
-
 }

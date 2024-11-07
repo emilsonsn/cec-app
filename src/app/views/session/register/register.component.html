@@ -11,31 +11,33 @@
     </div>
 
     @if(loading) {
-      <div class="me-auto me-sm-0 mb-sm-0 mb-2 loading">
-        <mat-spinner></mat-spinner>
-      </div>
+    <div class="me-auto me-sm-0 mb-sm-0 mb-2 loading">
+      <mat-spinner></mat-spinner>
+    </div>
     }
 
     <mat-divider class="my-3"></mat-divider>
 
     <form [formGroup]="form">
       <div class="row">
-        <div class="col-12 mb-3">
-          <div class="profile-upload">
-            <input type="file" id="fileInput" (change)="onFileSelected($event)" accept="image/*" hidden>
-            <div class="upload-container" (click)="triggerFileInput()" [ngClass]="{'drag-over': isDragOver}"
-              (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
-              <div class="upload-placeholder" *ngIf="!profileImage">
-                <i class="fa-solid fa-upload"></i>
-                <p>Arraste a imagem aqui ou clique para fazer upload</p>
-              </div>
-              <img *ngIf="profileImage" [src]="profileImage" alt="Foto de Perfil" class="uploaded-image">
-              <div *ngIf="profileImage" class="remove-image" (click)="removeImage($event)">
-                <i class="fa-solid fa-trash"></i>
+        <!--
+          <div class="col-12 mb-3">
+            <div class="profile-upload">
+              <input type="file" id="fileInput" (change)="onFileSelected($event)" accept="image/*" hidden>
+              <div class="upload-container" (click)="triggerFileInput()" [ngClass]="{'drag-over': isDragOver}"
+                (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+                <div class="upload-placeholder" *ngIf="!profileImage">
+                  <i class="fa-solid fa-upload"></i>
+                  <p>Arraste a imagem aqui ou clique para fazer upload</p>
+                </div>
+                <img *ngIf="profileImage" [src]="profileImage" alt="Foto de Perfil" class="uploaded-image">
+                <div *ngIf="profileImage" class="remove-image" (click)="removeImage($event)">
+                  <i class="fa-solid fa-trash"></i>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        -->
 
         <div class="col-12 mb-3">
           <mat-form-field appearance="outline">
@@ -46,7 +48,8 @@
         <div class="col-12 mb-3">
           <mat-form-field appearance="outline">
             <mat-label>E-mail</mat-label>
-            <input matInput type="text" formControlName="email" mask="A*@A*.SSS" [validation]="true" [dropSpecialCharacters]="false">
+            <input matInput type="text" formControlName="email" mask="A*@A*.SSS" [validation]="true"
+              [dropSpecialCharacters]="false">
           </mat-form-field>
         </div>
         <div class="col-md-6 col-12 mb-3">
@@ -70,13 +73,18 @@
               title="Digite um número de celular válido (xx)xxxxx-xxxx" required />
           </mat-form-field>
         </div>
-        <div class="col-md-6 col-12 mb-3">
-          <mat-form-field appearance="outline">
-            <mat-label>Whatsapp</mat-label>
-            <input type="text" formControlName="whatsapp" matInput mask="(00) 0000-0000||(00) 00000-0000"
-              title="Digite um número de telefone válido (xx)xxxx-xxxx ou (xx)xxxxx-xxxx" />
-          </mat-form-field>
-        </div>
+        <!--
+          <div class="col-md-6 col-12 mb-3">
+            <mat-form-field appearance="outline">
+              <mat-label>Whatsapp</mat-label>
+              <input type="text" formControlName="whatsapp" matInput mask="(00) 0000-0000||(00) 00000-0000"
+                title="Digite um número de telefone válido (xx)xxxx-xxxx ou (xx)xxxxx-xxxx" />
+            </mat-form-field>
+          </div>
+         -->
+
+        <div class="col-12"></div>
+
         <div class="col-md-6 col-12 mb-3">
           <mat-form-field appearance="outline">
             <mat-label>Senha</mat-label>
@@ -86,7 +94,8 @@
         <div class="col-md-6 col-12 mb-3">
           <mat-form-field appearance="outline">
             <mat-label>Confirmação de Senha</mat-label>
-            <input type="password" [(ngModel)]="confirm_password" [ngModelOptions]="{standalone: true}" matInput title="Confirmação de Senha" required />
+            <input type="password" [(ngModel)]="confirm_password" [ngModelOptions]="{standalone: true}" matInput
+              title="Confirmação de Senha" required />
           </mat-form-field>
         </div>
       </div>

@@ -52,7 +52,7 @@ export class RegisterComponent {
       birth_date: [null, [Validators.required]],
       password: [null, [Validators.required]],
       phone: [null, [Validators.required]],
-      whatsapp: [null, [Validators.required]],
+      // whatsapp: [null, [Validators.required]],
       email: [null, [Validators.required]],
     })
 
@@ -112,10 +112,10 @@ export class RegisterComponent {
     formData.append('cpf_cnpj', this.form.get('cpf_cnpj')?.value);
     formData.append('birth_date', dayjs(this.form.get('birth_date')?.value).format('YYYY-MM-DD'));
     formData.append('phone', this.form.get('phone')?.value);
-    formData.append('whatsapp', this.form.get('whatsapp')?.value);
+    // formData.append('whatsapp', this.form.get('whatsapp')?.value);
     formData.append('email', this.form.get('email')?.value);
     formData.append('password', this.form.get('password')?.value);
-    formData.append('photo', this.profileImageFile);
+    // formData.append('photo', this.profileImageFile);
     // formData.append('is_active', "1");
     // formData.append('is_admin', "0");
     // formData.append('file_limit', this.limit.toString());
