@@ -9,6 +9,7 @@ export class Utils {
     // public isUserMaster : boolean = this._localStorage.get("type") == "MASTER";
 
   public static patternEmail = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}";
+  public static _patternEmail = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$";
 
     static toBase64(file: File): Promise<string | ArrayBuffer> {
         return new Promise((resolve, reject) => {
