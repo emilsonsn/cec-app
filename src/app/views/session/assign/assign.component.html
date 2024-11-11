@@ -52,7 +52,9 @@
           </mat-tab-group>
         </div>
         <div class="mt-2 bg-img" *ngIf="imgUrl">
-          <img [src]="imgUrl" alt="">
+          <a [href]="url" target="_blank">
+            <img [src]="imgUrl" alt="">
+          </a>
         </div>
       </div>
       <div class="display-animation mx-auto d-lg-flex d-none">

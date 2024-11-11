@@ -21,7 +21,7 @@ export class DialogAssignCredentialsComponent implements OnInit {
   protected isToShowCertificate: boolean = false;
 
   protected access_token : string = '';
-  public title = 'Digite o código OTP'
+  public title = 'Digite o token do BirdId'
 
   // Certificates
   protected certificateSelect = [];

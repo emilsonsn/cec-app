@@ -27,6 +27,7 @@ export class SettingsComponent {
   ngOnInit() {
     this.form = this._fb.group({
       limit: [0, [Validators.required]],
+      url: [''],
       display: ['']
     });
     this.getSettings();
@@ -51,6 +52,8 @@ export class SettingsComponent {
 
     const formData = new FormData();
     formData.append('limit', this.form.get('limit').value);
+    formData.append('url', this.form.get('url').value);
+  
     if (this.form.get('display').value) {
       formData.append('display', this.form.get('display').value);
     }
@@ -75,7 +78,10 @@ export class SettingsComponent {
       .pipe(finalize(() => this._initOrStopLoading()))
       .subscribe({
         next: (res) => {
-          this.form.patchValue({ limit: res.limit });
+          this.form.patchValue({
+              limit: res.limit,
+              url: res.url
+            });
           if (res.display) {
             this.previewUrl = res.display;
           }

@@ -43,6 +43,7 @@ export class AssignComponent implements OnInit {
 
   protected setting;
   public imgUrl: string = '';
+  public url: string = '';
 
   protected loading: boolean = false;
 
@@ -71,7 +72,8 @@ export class AssignComponent implements OnInit {
     this._settingService.get()
     .subscribe({
       next: (res) =>{
-        this.imgUrl = res.display;        
+        this.imgUrl = res.display;
+        this.url = res.url;
       },      
     });
   }
@@ -236,7 +238,7 @@ export class AssignComponent implements OnInit {
       const yPercent = (clickY / canvas.height) * 100;
 
       img.onload = function () {
-        ctx.drawImage(img, clickX, clickY, 107, 30); // Exibe a imagem na posição clicada
+        ctx.drawImage(img, clickX, clickY, 170, 50); // Exibe a imagem na posição clicada
       };
 
       this.previosCtxSigned = ctx;
