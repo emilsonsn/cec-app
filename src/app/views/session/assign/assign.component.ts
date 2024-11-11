@@ -3,6 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { User } from '@models/user';
 import { AssignService } from '@services/assign.service';
 import { AuthService } from '@services/auth.service';
+import { SettingService } from '@services/settings.service';
 import { DialogAssignCredentialsComponent } from '@shared/dialogs/dialog-assign-credentials/dialog-assign-credentials.component';
 import { DialogCollaboratorComponent } from '@shared/dialogs/dialog-collaborator/dialog-collaborator.component';
 import { SessionQuery } from '@store/session.query';
@@ -40,6 +41,9 @@ export class AssignComponent implements OnInit {
 
   protected user: User;
 
+  protected setting;
+  public imgUrl: string = '';
+
   protected loading: boolean = false;
 
   constructor(
@@ -49,7 +53,8 @@ export class AssignComponent implements OnInit {
     private readonly _sessionQuery: SessionQuery,
     private readonly _authService: AuthService,
     private readonly _sessionService: SessionService,
-    private readonly _sessionStore: SessionStore
+    private readonly _settingService: SettingService,
+    private readonly _sessionStore: SessionStore,
   ) {}
 
   ngOnInit() {
@@ -57,6 +62,17 @@ export class AssignComponent implements OnInit {
 
     this._sessionQuery.user$.subscribe((user) => {
       this.user = user;
+    });
+
+    this._getSetting();
+  }
+
+  private _getSetting() {
+    this._settingService.get()
+    .subscribe({
+      next: (res) =>{
+        this.imgUrl = res.display;        
+      },      
     });
   }
 

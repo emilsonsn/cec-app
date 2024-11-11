@@ -51,6 +51,9 @@
             </mat-tab>
           </mat-tab-group>
         </div>
+        <div class="mt-2 bg-img" *ngIf="imgUrl">
+          <img [src]="imgUrl" alt="">
+        </div>
       </div>
       <div class="display-animation mx-auto d-lg-flex d-none">
         <ng-lottie width="500px" containerClass="moving-box" [options]="options" />

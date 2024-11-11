@@ -17,8 +17,8 @@ export class SettingService {
     return this._http.get<ApiResponsePageable<any>>(`${environment.api}/setting/search`);
   }
 
-  public patch(limit : number): Observable<ApiResponse<any>> {
-    return this._http.patch<ApiResponse<any>>(`${environment.api}/setting/`, {limit});
+  public patch(formData): Observable<ApiResponse<any>> {
+    return this._http.post<ApiResponse<any>>(`${environment.api}/setting?_method=PATCH`, formData);
   }
 
 }

@@ -259,12 +259,22 @@
 
 .templateTabs {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background-color: $secondary;
   height: 100%;
   padding: 2rem;
   width: 45%;
+
+  .bg-img {
+    width: 100%;
+
+    img{
+      width: 100%;
+      max-height: 300px;
+    }
+  }
 
   .contentTabs {
     border-radius: 8px;
