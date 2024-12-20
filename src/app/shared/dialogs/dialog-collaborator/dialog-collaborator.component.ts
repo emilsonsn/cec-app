@@ -72,8 +72,6 @@ export class DialogCollaboratorComponent {
     }
   }
 
-  // (19) 99778-2768
-
   public onSubmit(): void {
     if (!this.form.valid ) {
       console.log(this.form.controls);
