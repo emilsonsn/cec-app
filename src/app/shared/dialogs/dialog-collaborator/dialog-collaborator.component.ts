@@ -74,6 +74,7 @@ export class DialogCollaboratorComponent {
 
   public onSubmit(): void {
     if (!this.form.valid ) {
+      console.log(this.form.valid);
       this.form.markAllAsTouched();
       return
     }
