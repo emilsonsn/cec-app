@@ -47,7 +47,7 @@ export class DialogCollaboratorComponent {
       cpf_cnpj: [null, [Validators.required]],
       birth_date: [null, [Validators.required]],
       phone: [null, [Validators.required]],
-      whatsapp: [null, [Validators.required]],
+      whatsapp: [null],
       email: [null, [Validators.required]],
       password: [null],
     });
@@ -71,6 +71,8 @@ export class DialogCollaboratorComponent {
       }
     }
   }
+
+  // (19) 99778-2768
 
   public onSubmit(): void {
     if (!this.form.valid ) {
